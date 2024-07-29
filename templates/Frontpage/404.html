@@ -1,0 +1,33 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- Page Header Start here -->
+  <section class="page-header section-notch">
+    <div class="overlay">
+      <div class="container">
+        <h3>Page Not Found</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>-</li>
+          <li>404 Page</li>
+        </ul>
+      </div><!-- container -->
+    </div><!-- overlay -->
+  </section><!-- page header -->
+  <!-- Page Header End here -->
+
+  <!-- Error Page Start here -->
+  <section class="error-page padding-120">
+    <div class="container">
+      <div class="error-content">
+        <h2>404</h2>
+        <h3><span>Oops,</span> This Page Not Be Found!</h3>
+        <p>We are really sorry but the page you requested is missing :</p>
+        <a href="{% url 'home' %}" class="button-default">Go Back Home</a>
+      </div><!-- error content -->
+    </div><!-- container -->
+  </section>
+  <!-- Error Page End here -->
+
+{% endblock content %}

@@ -1,0 +1,561 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .grid-enquiry {
+        display : flex;
+        align-items : center;
+        justify-content : center;
+    }
+    .grid-enquiry .zoom-in {
+        width : 250px;
+    }
+    .grid-enquiry .zoom-in .box {
+        display: flex;
+        justify-content: center;
+        position:relative;
+    }
+    .grid-enquiry .zoom-in .box span {
+        position: absolute;
+        top: -7px;
+        right: -4px;
+        background: #ff2f00;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        color: #fff;
+    }
+    .grid-enquiry .zoom-in .box .text-base {
+        color : #fff;
+    }
+    .checkbox {
+        color: #ef6161;
+        border: 2px solid;
+    }
+    .active-enquiry {
+        background: #616a7a;
+    }
+    .inactive-enquiry {
+        background: #1e293b;
+    }
+    .all-read-btn {
+        background: #282425;
+        color: #fff;
+    }
+    
+</style>
+
+<div class="content">
+    <div class="grid gap-6">
+        <div class="col-span-12 2xl">
+            <div class=" grid-cols-12 gap-6">
+                <!-- BEGIN: General Report -->
+                <div class="col-span-12 mt-8">
+                    <div class="intro-y flex items-center h-10">
+                        <h2 class="text-lg font-medium truncate mr-5">
+                            Enquiry Report
+                        </h2>
+                    </div>
+                    <div class="grid-enquiry grid-cols-12 gap-6 mt-5">
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <a href="javascript:void(0);" onclick="showQuotes()" class="enquiry-link">
+                                <div class="zoom-in">
+                                    <div id="quotes-link" class="box p-5 active-enquiry " data-section="quotes">
+                                        <div class="text-base text-slate-500 mt-1">Quote Enquirys </div>
+                                        {% if unread_quotes > 0 %}
+                                        <span>{{unread_quotes}}</span>
+                                        {% endif %}
+                                    </div>
+                                </div> 
+                            </a>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <a href="javascript:void(0);" onclick="showFindDealers()" class="enquiry-link">
+                                <div class="zoom-in">
+                                    <div id="findDealers-link" class="box p-5 inactive-enquiry" data-section="findDealers">
+                                        <div class="text-base text-slate-500 mt-1">Dealer Enquirys</div>
+                                        {% if unread_findEnquirys > 0 %}
+                                        <span>{{unread_findEnquirys}}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <a href="javascript:void(0);" onclick="showNewDealers()" class="enquiry-link">
+                                <div class="zoom-in">
+                                    <div id="newDealers-link" class="box p-5 inactive-enquiry" data-section="newDealers">
+                                        <div class="text-base text-slate-500 mt-1">New Dealers</div>
+                                        {% if unread_newDealers > 0 %}
+                                        <span>{{unread_newDealers}}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- END: General Report -->
+
+            </div>
+        </div>
+
+        <!-- BEGIN: Quote Enquirys-->
+        <div id="quotes-section" class="col-span-12 overflow-auto lg:overflow-visible">
+            <div class="content">
+
+                <!-- BEGIN: Notification -->
+                {% if messages %}
+                {% for message in messages %}
+                    <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+                        <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+                        <span>{{ message }}</span>
+                        <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+                    </div>
+                {% endfor %}
+                {% endif %}
+                <!-- BEGIN: Notification -->
+            
+                <h2 class="text-primary text-center font-medium mt-10" style="font-size: 30px;">Manage Quotes</h2>
+                <!-- BEGIN: Weekly Top Products -->
+                <div class="col-span-12 mt-6 border-t border-dark pt-5">
+                    <div class="intro-y block sm:flex items-center h-10">
+                        <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+                            <form id="mark-all-read-form" action="{% url 'mark_all_as_read' %}" method="post">
+                                {% csrf_token %}
+                                <button type="button" class="btn btn-primary box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllAsRead()">Mark all as read</button>
+                            </form>                
+                        </div>
+                    </div>
+                    <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+                        {% if quotes %}
+                            <table class="table table-report sm:mt-2">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center whitespace-nowrap">SL NO</th>
+                                        <th class="text-center whitespace-nowrap">NAME</th>
+                                        <th class="text-center whitespace-nowrap">CONTACT</th>
+                                        <th class="text-center whitespace-nowrap">POSITION</th>
+                                        <th class="text-center whitespace-nowrap">COLOR</th>
+                                        <th class="text-center whitespace-nowrap">SIZE</th>
+                                        <th class="text-center whitespace-nowrap">ADDED DATE </th>
+                                        <th class="text-center whitespace-nowrap">ACTIONS</th>
+                                        <th class="text-center whitespace-nowrap">READ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for data in quotes %}
+                                    <tr class="intro-x">
+                                        <td class="text-center whitespace-nowrap">{{ forloop.counter }}</td>
+                                        <td class="flex justify-center">{{ data.Name }}</td>
+                                        <td class="text-center whitespace-nowrap">{{ data.Contact }}</td>
+                                        <td class="text-center whitespace-nowrap">{{ data.Hanging_position }}</td>
+                                        <td class="text-center whitespace-nowrap">{{ data.Color_shade }}</td>
+                                        <td class="text-center whitespace-nowrap">{{ data.Size }}</td>
+                                        <td class="text-center whitespace-nowrap">{{ data.Date | date:'d M Y' }}</td>
+                                        <td class="table-report__action w-48">
+                                            <div class="flex justify-center items-center">
+                                                <a onclick="delete_quote('{{data.id}}')" class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal-quote"> 
+                                                    <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <form method="post" action="{% url 'update_read_status' data.id %}" id="read-form-{{ data.id }}">
+                                                {% csrf_token %}
+                                                {% if data.Is_read %}
+                                                    <span class="read-indicator"></span>
+                                                {% else %}
+                                                    <input type="checkbox" name="quote_ids" value="{{ data.id }}" onchange="updateReadStatus(this, {{ data.id }})">
+                                                {% endif %}
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                        <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-3">
+                            <table class="table table-report -mt-2">
+                                <tbody>
+                                    <tr class="intro-x width"> 
+                                        <td class=" width" style="width:100%;">
+                                            <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                                background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                            </i>
+                                        <div style="text-align: center;">No data available!</div>
+                                        </td>   
+                                    </tr>    
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- END: Weekly Top Products -->
+            </div>
+            <!-- BEGIN: Delete Confirmation Modal -->
+            <div id="delete-modal-quote" class="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{% url 'delete-quote' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="quote_id" id="quote_id">
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <div class="p-5 text-center">
+                                    <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                    <div class="text-3xl mt-5">Are you sure?</div>
+                                    <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                                </div>
+                                <div class="px-5 pb-8 text-center">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                                    <button type="submit" class="btn btn-danger w-24">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END: Delete Confirmation Modal -->
+
+        </div>
+         <!-- END: Quote Enquirys-->
+
+
+         <!-- BEGIN: Find Dealer Enquirys-->
+        <div id="findDealers-section" class="col-span-12 overflow-auto lg:overflow-visible">
+            <div class="col-span-12">
+                <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 20px;">Dealer Enquiries</h2>
+            </div>
+
+            <!-- BEGIN: All Items Set True -->
+            <div class="intro-y block sm:flex items-center h-10">
+                <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+                    <form id="mark-all-find-dealer-read-form" action="{% url 'mark_all_find_dealer_as_read' %}" method="post">
+                        {% csrf_token %}
+                        <button type="button" class="btn all-read-btn box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllFindDealerAsRead()">Mark all as read</button>
+                    </form>                
+                </div>
+            </div>
+            <!-- END: All Items Set True -->
+
+            <div class="col-span-12 mt-3 border-t border-dark pt-2">
+                <div class="intro-y overflow-auto lg:overflow-visible mt-5 sm:mt-0">
+                {% if findEnquirys %}
+                <table class="table table-report sm:mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL NO</th>
+                            <th class="text-center whitespace-nowrap">NAME</th>
+                            <th class="text-center whitespace-nowrap">CONTACT</th>
+                            <th class="text-center whitespace-nowrap">STATE</th>
+                            <th class="text-center whitespace-nowrap">DISTRICT</th>
+                            <th class="text-center whitespace-nowrap">PLACE</th>
+                            <th class="text-center whitespace-nowrap">ADDED DATE </th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                            <th class="text-center whitespace-nowrap">READ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in findEnquirys %}
+                            <tr class="intro-x">
+                                <td class="text-center whitespace-nowrap">{{ forloop.counter }}</td>
+                                <td class="flex justify-center">{{ data.Name }}</td>
+                                <td class="text-center whitespace-nowrap">{{ data.Phone }}</td>
+                                <td class="text-center whitespace-nowrap">{{ data.State }}</td>
+                                <td class="text-center whitespace-nowrap">{{ data.District }}</td>
+                                <td class="text-center whitespace-nowrap">{{ data.Place }}</td>
+                                <td class="text-center whitespace-nowrap">{{ data.Date | date:'d M Y' }}</td>
+                                <td class="table-report__action w-48">
+                                    <div class="flex justify-center items-center">
+                                        <a onclick="delete_findDealer('{{data.id}}')" class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal-findDealer"> 
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-center whitespace-nowrap">
+                                    <form method="post" action="{% url 'update_read_find_dealer_status' data.id %}" id="read-form-findDealer-{{ data.id }}">
+                                        {% csrf_token %}
+                                        {% if data.Is_read %}
+                                            <span class="read-indicator"></span>
+                                        {% else %}
+                                            <input type="checkbox" class="checkbox" name="find_dealer_ids" value="{{ data.id }}" onchange="updateFindDealerReadStatus(this, {{ data.id }})">
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                    <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-3">
+                        <table class="table table-report -mt-2">
+                            <tbody>
+                                <tr class="intro-x width"> 
+                                    <td class=" width" style="width:100%;">
+                                        <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                            background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                        </i>
+                                    <div style="text-align: center;">No data available!</div>
+                                    </td>   
+                                </tr>    
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- BEGIN: Delete Confirmation Modal -->
+            <div id="delete-modal-findDealer" class="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{% url 'delete-findDealer' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="findDealer_id" id="findDealer_id">
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <div class="p-5 text-center">
+                                    <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                    <div class="text-3xl mt-5">Are you sure?</div>
+                                    <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                                </div>
+                                <div class="px-5 pb-8 text-center">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                                    <button type="submit" class="btn btn-danger w-24">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END: Delete Confirmation Modal -->
+
+        </div>
+         <!-- END: Find Dealer Enquirys-->
+
+
+         <!-- BEGIN: New Dealer Enquirys-->
+        <div id="newDealers-section" class="col-span-12 overflow-auto lg:overflow-visible">
+            <div class="col-span-12">
+                <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 20px;">New Dealer Enquiries</h2>
+            </div>
+
+            <!-- BEGIN: All Items Set True -->
+            <div class="intro-y block sm:flex items-center h-10">
+                <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+                    <form id="mark-all-new-dealer-read-form" action="{% url 'mark_all_new_dealer_as_read' %}" method="post">
+                        {% csrf_token %}
+                        <button type="button" class="btn all-read-btn box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllNewDealerAsRead()">Mark all as read</button>
+                    </form>                
+                </div>
+            </div>
+            <!-- END: All Items Set True -->
+
+            <div class="col-span-12 mt-3 border-t border-dark pt-2">
+                <div class="intro-y overflow-auto lg:overflow-visible mt-5 sm:mt-0">
+                    {% if newDealers %}
+                    <table class="table table-report sm:mt-2">
+                        <thead>
+                            <tr>
+                                <th class="text-center whitespace-nowrap">SL NO</th>
+                                <th class="text-center whitespace-nowrap">NAME</th>
+                                <th class="text-center whitespace-nowrap">EMAIL</th>
+                                <th class="text-center whitespace-nowrap">CONTACT</th>
+                                <th class="text-center whitespace-nowrap">BUSINESS</th>
+                                <th class="text-center whitespace-nowrap">ADDRESS</th>
+                                <th class="text-center whitespace-nowrap">STATE</th>
+                                <th class="text-center whitespace-nowrap">DISTRICT</th>
+                                <th class="text-center whitespace-nowrap">ADDED DATE </th>
+                                <th class="text-center whitespace-nowrap">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in newDealers %}
+                                <tr class="intro-x">
+                                    <td class="text-center whitespace-nowrap">{{ forloop.counter }}</td>
+                                    <td class="flex justify-center ">{{ data.Name }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.Email }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.Contact }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.Business }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.Address }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.State }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.District }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ data.Date | date:'d M Y' }}</td>
+                                    <td class="table-report__action w-48">
+                                        <div class="flex justify-center items-center">
+                                            <a onclick="delete_newDealer('{{data.id}}')" class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal"> 
+                                                <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center whitespace-nowrap">
+                                        <form method="post" action="{% url 'update_read_new_dealer_status' data.id %}" id="read-form-newDealer-{{ data.id }}">
+                                            {% csrf_token %}
+                                            {% if data.Is_read %}
+                                                <span class="read-indicator"></span>
+                                            {% else %}
+                                                <input type="checkbox" class="checkbox" name="new_dealer_ids" value="{{ data.id }}" onchange="updateNewDealerReadStatus(this, {{ data.id }})">
+                                            {% endif %}
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-3">
+                        <table class="table table-report -mt-2">
+                            <tbody>
+                                <tr class="intro-x width"> 
+                                    <td class=" width" style="width:100%;">
+                                        <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                            background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                        </i>
+                                    <div style="text-align: center;">No data available!</div>
+                                    </td>   
+                                </tr>    
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+           <!-- BEGIN: Delete Confirmation Modal -->
+            <div id="delete-modal" class="modal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{% url 'delete-newDealer' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="newDealer_id" id="newDealer_id">
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <div class="p-5 text-center">
+                                    <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                                    <div class="text-3xl mt-5">Are you sure?</div>
+                                    <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                                </div>
+                                <div class="px-5 pb-8 text-center">
+                                    <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                                    <button type="submit" class="btn btn-danger w-24">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END: Delete Confirmation Modal -->
+
+        </div>
+         <!-- END: New Dealer Enquirys-->
+
+    
+        
+    
+    </div>
+
+    <script src="{% static 'dashboard/js/readStatus.js' %}"></script>
+<script>
+    
+</script>
+
+<style>
+    .read-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: green;
+        display: inline-block;
+        margin-left: 5px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    function delete_quote(quote_id){
+        $('#quote_id').val(quote_id)
+        // Ensure quotes section is displayed after delete
+        showQuotes();    
+    }
+</script>
+<script>
+    function delete_findDealer(findDealer_id){
+        $('#findDealer_id').val(findDealer_id)
+        // Ensure find dealers section is displayed after delete
+        showFindDealers();
+    }
+</script>
+<script>
+    function delete_newDealer(newDealer_id){
+        $('#newDealer_id').val(newDealer_id)
+         // Ensure new dealers section is displayed after delete
+         showNewDealers();
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateActiveEnquiryLink(clickedElement) {
+            // Remove the active class from all enquiry links
+            const enquiryLinks = document.querySelectorAll('.enquiry-link .box');
+            enquiryLinks.forEach(link => {
+                link.classList.remove('active-enquiry');
+                link.classList.add('inactive-enquiry');
+
+            });
+
+            // Add the active class to the clicked element
+            clickedElement.classList.add('active-enquiry');
+            clickedElement.classList.remove('inactive-enquiry');
+
+            // Save the ID of the active element in localStorage
+            localStorage.setItem('activeEnquirySection', clickedElement.id);
+        }
+
+        // Attach click event listeners to all enquiry links
+        const enquiryLinks = document.querySelectorAll('.enquiry-link .box');
+        enquiryLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                updateActiveEnquiryLink(this);
+            });
+        });
+
+        // Check which section to display initially based on localStorage
+        const activeSection = localStorage.getItem('activeSection') || 'quotes';
+        if (activeSection === 'quotes') {
+            showQuotes();
+        } else if (activeSection === 'findDealers') {
+            showFindDealers();
+        } else if (activeSection === 'newDealers') {
+            showNewDealers();
+        }
+    });
+
+    function showQuotes() {
+        document.getElementById('quotes-section').style.display = 'block';
+        document.getElementById('findDealers-section').style.display = 'none';
+        document.getElementById('newDealers-section').style.display = 'none';
+        localStorage.setItem('activeSection', 'quotes');
+        updateActiveEnquiryClass('quotes');
+    }
+
+    function showFindDealers() {
+        document.getElementById('quotes-section').style.display = 'none';
+        document.getElementById('findDealers-section').style.display = 'block';
+        document.getElementById('newDealers-section').style.display = 'none';
+        localStorage.setItem('activeSection', 'findDealers');
+        updateActiveEnquiryClass('findDealers');
+    }
+
+    function showNewDealers() {
+        document.getElementById('quotes-section').style.display = 'none';
+        document.getElementById('findDealers-section').style.display = 'none';
+        document.getElementById('newDealers-section').style.display = 'block';
+        localStorage.setItem('activeSection', 'newDealers');
+        updateActiveEnquiryClass('newDealers');
+    }
+
+    
+</script>
+</div>
+{% endblock content %}

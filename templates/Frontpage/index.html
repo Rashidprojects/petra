@@ -1,0 +1,357 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+
+
+{% block content %}
+
+<style>
+    .swiper-slide p {
+        margin: 0 42px;
+    }
+    .signature-doors .swiper-slide img {
+        display : block;
+        width : 300px;
+        height : 500px;
+    }
+    .signature-doors .swiper-slide h2 {
+        display : none;
+    }
+    .swiper-slide:hover h2 {
+        display : block;
+        text-align : center;
+    }
+    .signature-doors .mySwiperprosection {
+        padding-left : 90px
+    }
+    .producdescription p {
+        padding-right: 27px;
+    }
+</style>
+
+
+
+    <div class="container-fluid p-0">
+
+
+        <section class="banner-section">
+
+            <div id="carouselExampleFade" class="carousel slide carousel-fade z-0" data-bs-ride="carousel"
+                data-bs-interval="3000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active ">
+                        <div class="banner-content z-1 ">
+                            <h2 class="animate__animated ">
+                                Upgrade your style and security
+                            </h2>
+                            <p class="animate__animated animate__backI mt-4 ">
+                                Discover the perfect balance of security and style with petra steel door. Our
+                                high-standard doors offer advanced security without compromising on style. Select your
+                                own customisable designs to find the ideal fit for your space
+                            </p>
+                            <div class="banner-btn animate__animated animate__backInUp mt-4">
+                                <button>SEE PROJECTS</button>
+                            </div>
+                        </div>
+                        <div class="bannercnt-mob animate__animated ">
+                            <h3>
+                                Upgrade your style and security
+                            </h3>
+                            <button type="button" class="btn btn-outline-light mt-3 ">SEE MORE</button>
+                        </div>
+                        <img class="lap-view" src="{%static 'assets/images/1496x700-01.webp' %}" class="d-block w-100"
+                            alt="1496x700-01.webp">
+                        <img class="mob-view" src="{%static 'assets/images/460x560-01.webp' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="banner-content z-1">
+                            <h2 class="animate__animated ">
+                                Crafted by unique designed steel door
+                            </h2>
+                            <p class="animate__animated  mt-4">
+                                Enhance your environment with Petra steel door. Enjoy both security and style with our
+                                premium steel doors. Petra has unique designs for unique interiors. You are not just
+                                investing in beauty; you are investing in protection and time-less elegance.
+                            </p>
+                            <div class="banner-btn animate__animated animate__backInUp mt-4">
+                                <button>SEE PROJECTS</button>
+                            </div>
+
+                        </div>
+                        <div class="bannercnt-mob animate__animated ">
+                            <h3>
+                                Crafted by unique designed steel door
+                            </h3>
+                            <button type="button" class="btn btn-outline-light mt-3 ">SEE MORE</button>
+                        </div>
+                        <img class="lap-view" src="{%static 'assets/images/1496x700-02.webp' %}" class="d-block w-100" alt="...">
+                        <img class="mob-view" src="{%static 'assets/images/460x560-02.webp' %}" class="d-block w-100" alt="...">
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="banner-content z-1">
+                            <h2 class="animate__animated "> Be ready to move with innovation by Petra
+                            </h2>
+                            <p class="animate__animated animate__backInLeft mt-4 ">
+                                Switch to our latest collection of premium steel doors. Our innovative designs meet all
+                                your worries about security. Perfect designs for your home with customizable options.
+                                Make your dream designs a reality
+                            </p>
+                            <div class="banner-btn animate__animated animate__backInUp mt-4">
+                                <button>SEE PROJECTS</button>
+                            </div>
+                        </div>
+                        <div class="bannercnt-mob animate__animated animate__backInLeft">
+                            <h3>
+                                Be ready to move with innovation by Petra
+                            </h3>
+                            <button type="button" class="btn btn-outline-light mt-3 ">SEE MORE</button>
+                        </div>
+                        <img class="lap-view" src="{%static 'assets/images/1496x700-03.webp' %}" class="d-block w-100" alt="...">
+                        <img class="mob-view" src="{%static 'assets/images/460x560-03.webp' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <!-- End of New Carousel Item -->
+                </div>
+                <ol class="carousel-indicators">
+                    <li data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active"></li>
+                    <li data-bs-target="#carouselExampleFade" data-bs-slide-to="1"></li>
+                    <li data-bs-target="#carouselExampleFade" data-bs-slide-to="2"></li>
+                </ol>
+            </div>
+
+
+            <!-- Slides -->
+            <div class="swiper mainSwiper"> 
+
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide producdescription ">
+                        <img class="carouselImages" src="{%static 'assets/images/450x250-00.webp' %}" alt="">
+
+                        <div>
+                            <h3>Easy maintenance</h3>
+                            <p class="mt-2 ">
+                                Petra steel doors have very low maintenance, and it will long last forever. Reduce your
+                                time consumption and bring you more comfortable
+                            </p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide producdescription ">
+                        <img class="carouselImages" src="{%static 'assets/images/450x250-02.webp' %}" alt="">
+                        <div>
+                            <h3>Fortified security</h3>
+                            <p class="mt-2 ">
+                                Our steel doors assure durability and high-quality security. We use galvanized steel to
+                                resist all problems with steel doors.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide producdescription ">
+                        <img class="carouselImages" src="{%static 'assets/images/450x250-03.webp' %}" alt="">
+                        <div>
+                            <h3>Solid strength</h3>
+                            <p class="mt-2 ">
+                                Experience the super strength of petra steel doors with more durability. Our doors can
+                                survive in any weather condition because of their strength
+                            </p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide producdescription ">
+                        <img class="carouselImages" src="{%static 'assets/images/450x250-04.webp' %}" alt="">
+
+                        <div>
+                            <h3>Customised creation</h3>
+                            <p class="mt-2 ">
+                                You can easily customize your design with us. Variety of options for your personalized
+                                needs by petra steel door. Our elegance makes your dream design
+                            </p>
+                        </div>
+                    </div> 
+
+                </div>
+
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
+
+        <section class="features-section">
+            <div class="section-title m-b-70">
+                <h5 class="title-sub">PETRA STEEL DOORS</h5>
+                <h2 class="title-1 text-white ">Why Choose Us</h2>
+            </div>
+            <div class="container features-main">
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-01.png' %}" alt="Object-01.png">
+                    <h5 class="mt-2  mt-sm-4">WEATHER <br> RESISTANCE</h5>
+                </div>
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Vector-Smart-Object-02.png' %}" alt="Object-04.png">
+                    <h5 class="mt-2  mt-sm-4">GALVANIZED <br> IRON DOORS</h5>
+                </div>
+                <div class="features-main-child text-center ">
+                    <img class="features-img" src="{%static 'assets/images/Object.png' %}" alt="Object.png">
+                    <h5 class="mt-2  mt-sm-4">ENVIROMENTAL <br> FRIENDLY</h5>
+                </div>
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-08.png' %}" alt="Object-08.png">
+                    <h5 class="mt-2  mt-sm-4">LOW <br> MAINTENANCE</h5>
+                </div>
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-07.png' %}" alt="Object-07.png">
+                    <h5 class="mt-2  mt-sm-4">DESIGN <br> OPTIONS</h5>
+                </div>
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-06.png' %}" alt="Object-06.png">
+                    <h5 class="mt-2  mt-sm-4">NOISE <br> REDUCTION</h5>
+                </div>
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-04.png' %}" alt="Object-02.png">
+                    <h5 class="mt-2  mt-sm-4">FIRE <br> RESISTANT</h5>
+                </div>
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-03.png' %}" alt="Object-03.png">
+                    <h5 class="mt-2  mt-sm-4">TERMIT <br> PROOF</h5>
+                </div>
+
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-05.png' %}" alt="Object-05.png">
+                    <h5 class="mt-2  mt-sm-4">DURABILITY</h5>
+                </div>
+
+
+
+                <div class="features-main-child">
+                    <img class="features-img" src="{%static 'assets/images/Object-09.png' %}" alt="Object-09.png">
+                    <h5 class="mt-2  mt-sm-4">SECURITY</h5>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="wrap wrap--w1790 p-b-70 p-t-70 overflow-hidden">
+            <div class="section-title m-b-70">
+                <h5 class="title-sub">PETRA STEEL DOORS</h5>
+                <h2 class="title-1">Our Signature Doors</h2>
+            </div>
+            <div class="signature-doors">
+                <div class="Ddoorprosection-main">
+                    <div class="Ddoorprosection">
+                        <div class="mySwiperprosection">
+                            <div class="swiper-wrapper">
+                                {% for door in products %}
+                                <a class="swiper-slide" href="{{ door.get_absolute_url }}">
+                                    <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{door.Name}}</h2>
+                                    <img src="{{door.Image.url}}" alt="">
+                                </a>
+                                {% endfor %}
+                            </div>
+                            {% comment %} <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+
+        <section class="product-end">
+            <div class="product-end-cnt">
+                <h2 class="mb-3">PETRA READY MADE STEEL DOORS</h2>
+                <P>We offer a wide variety of ready-made steel doors to enhance your interior style and security. Choose
+                    from various materials, colors, and designs to find the perfect fit for your traditional and
+                    contemporary ideas. Providing high-quality steel doors to suit any style and budget. Our doors are
+                    really strong and secure, making them easy to install. We achieved a more trustworthy
+                    customer satisfaction
+                </P>
+                <button type="button" class="btn-enq py-3 px-5 mt-4 text-white border-1 ">ENQUIRE NOW <i
+                        class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="product-end-img animate__animated animate__pulse">
+                <img src="{%static 'assets/images/Group.webp' %}" alt="">
+            </div>
+
+        </section>
+
+
+
+        <section class="testi-main">
+            <div class="text-center ">
+                <h5 class="title-sub">PETRA STEEL DOORS</h5>
+                <h2 class="title-1">What Our Customers Say</h2>
+            </div>
+            <div class="container-testi">
+                <div class="testimonial mySwiper">
+
+                    <div class="testi-content swiper-wrapper">
+
+                        <div class="slide swiper-slide">
+                            <p class="text-black m-0">
+                                Products and service from PETRA was simply awesomeness. They transformed my front door
+                                now. PETRA team was honest, trustworthy and I highly recommend them to everyone who asks
+                                about this company.
+                            </p>
+                            <i class="fa-solid fa-quote-left text"></i>
+                            <div class="details">
+                                <span class="name">JOHN ALEXY BANGALORE</span>
+                            </div>
+                        </div>
+                        <div class="slide swiper-slide">
+
+                            <p class="text-black m-0">
+                                Really happy with our doors, the look and quality of the end result was spot on. We were
+                                impressed with the professional service throughout from initial visit discussing options
+                                available
+                            </p>
+                            <i class="fa-solid fa-quote-left text"></i>
+                            <div class="details">
+                                <span class="name">AMEL ZARA COCHIN</span>
+                            </div>
+                        </div>
+                        <div class="slide swiper-slide">
+
+                            <p class="text-black m-0">
+                                Many of my architects' friends recommended PETRA to me. As all suggested Fantastic
+                                Product,a great company to deal with, friendly expert staff who guided me through the
+                                process
+                                turn around
+                            </p>
+                            <i class="fa-solid fa-quote-left text"></i>
+                            <div class="details">
+                                <span class="name">ANANTH K SUBRAMANIAN CHENNAI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-button-next nav-btn text-black"></div>
+                    <div class="swiper-button-prev nav-btn"></div>
+
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3913.1844493336503!2d75.83143717504873!3d11.247837938931072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65bbe43ff8047%3A0xb7d35b5655d9b4ec!2sHiLITE%20Builders!5e0!3m2!1sen!2sin!4v1712904657229!5m2!1sen!2sin"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- Add this in the head or at the end of the body -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+
+
+</html>

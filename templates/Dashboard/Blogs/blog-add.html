@@ -1,0 +1,72 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item active" aria-current="page">Add Blog</li>
+{% endblock page %}
+
+{% block content %}
+
+<div class="content">
+
+    <!-- BEGIN: Notification -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <!-- BEGIN: Notification -->
+
+    <div class="intro-y box py-10 sm:py-10 mt-5">
+
+        <h2 class="text-primary text-center font-medium" style=" font-size: 30px;">Add Blogs</h2>
+        
+        <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Blog Title</label>
+                        <input type="text" name="title" class="form-control" required>
+                    </div>
+
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image</label>
+                        <input name="image" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
+                        <small class="form-text text-muted">Please select images of size 450x250 pixels.</small>
+                    </div>
+
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Banner Image</label>
+                        <input name="banner" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
+                        <small class="form-text text-muted">Please select images of size 450x250 pixels.</small>
+                    </div>
+
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Description</label>
+                        <textarea name="desc" id="" cols="10" rows="5" class="form-control" placeholder="Enter description about blog"></textarea>
+                    </div> <br>
+
+                    <div class="intro-y col-span-12 sm:col-span-12" id="size-fields-container">
+                        <label for="input-wizard-2" class="form-label">Content</label>
+                        <textarea name="content" id="" cols="10" rows="5" class="form-control" placeholder="Enter detail content"></textarea>
+                    </div>
+
+
+                   
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}

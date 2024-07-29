@@ -1,0 +1,127 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{%static 'style/product.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+    .show-message {
+        display: block;
+        background: #84cc16;
+        border: 1px solid;
+        border-color: #84cc16;
+        margin-top: 14px;
+        color: #fff;
+    }
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        padding: 1.25rem 1rem;
+    }
+    .close i {
+        font-size: 22px;
+    }
+</style>
+
+    <!-- BEGIN: Notification -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible  fade show show-message" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="close text-white" data-bs-dismiss="alert" aria-label="Close"> <i class="fa-solid fa-xmark"></i> </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <!-- BEGIN: Notification -->
+
+    <section class="inner-contents">
+        <div class=" position-relative">
+            <div class="banner-img ">
+                <img class="banner-product" src="{% static 'assets/images/330x1496.webp' %}" alt="">
+                <img class="banner-productImg" src="{% static 'assets/images/476x300.webp' %}" alt="">
+            </div>
+            <div class="innerpage-cnt text-center m-b-70">
+                <h5 class="title-sub text-black">PETRA STEEL DOORS</h5>
+                <h2 class="title-1">Products</h2>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="producSlidermain">
+        <h1 class="text-black text-center mb-5">Luxury Doors</h1>
+        <div class="mySwiperprosection">
+
+            <div class="swiper-wrapper">
+                {% for door in luxury %}
+                <a class="swiper-slide" href="{{ door.get_absolute_url }}">
+                    <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{door.Name}}</h2>
+                    <img src="{{door.Image.url}}" alt="">
+                </a>
+                {% endfor %}
+            </div>
+            
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+
+    <div class="producSlidermain">
+        <h1 class="text-black text-center mb-5">Single Doors</h1>
+        <div class="mySwiperprosection">
+            <div class="swiper-wrapper">
+                {% for door in single %}
+                <a class="swiper-slide" href="{{ door.get_absolute_url }}">
+                    <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{door.Name}}</h2>
+                    <img src="{{door.Image.url}}" alt="">
+                </a>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+
+
+    <div class="Ddoorprosection-main">
+        <div class="Ddoorprosection">
+            <h1 class="text-black text-center mb-5">Double Doors</h1>
+            <div class="mySwiperprosection">
+                <div class="swiper-wrapper">
+                    {% for door in double %}
+                    <a class="swiper-slide" href="{{ door.get_absolute_url }}">
+                        <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{door.Name}}</h2>
+                        <img src="{{door.Image.url}}" alt="">
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div> 
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- Add this in the head or at the end of the body -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
+
+{% endblock %}

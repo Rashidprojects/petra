@@ -1,0 +1,281 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item active" aria-current="page">Add Products</li>
+{% endblock page %}
+
+{% block content %}
+<style>
+    .door-types p {
+        font-size: 20px;
+        font-weight: 500;
+        margin: 7px 0;
+    }
+    .door-types label {
+        font-size: 15px;
+        padding: 2px 0px;
+        margin-right: 7px;
+    }
+    .size-button {
+        padding-top: 28px;
+    }
+    .group {
+        display: flex;
+        justify-content: space-around;
+    }
+    .color-group {
+        margin-left: 71px;
+        margin-top: 32px;
+    }
+    .size {
+        display: flex;
+        flex-direction: column;
+    }
+    .input-field {
+        margin-right: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .group {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .color-group {
+            margin-left: 0;
+            margin-top: 32px;
+        }
+    }
+    .size label {
+        margin: 5px 0;
+    }
+</style>
+
+<div class="content">
+
+    <!-- BEGIN: Notification -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <!-- BEGIN: Notification -->
+
+    <div class="intro-y box py-10 sm:py-10 mt-5">
+
+        <h2 class="text-primary text-center font-medium" style=" font-size: 30px;">Add Products</h2>
+        
+        <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Product Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 1</label>
+                        <input name="image" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 2</label>
+                        <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 3</label>
+                        <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 4</label>
+                        <input name="image4" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 5</label>
+                        <input name="image5" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Description</label>
+                        <textarea name="description" id="" cols="10" rows="5" class="form-control" placeholder="Enter description about added premium door"></textarea>
+                    </div> 
+                    <div class="intro-y col-span-12 sm:col-span-6 door-types">
+
+                        <div class="group">
+                            <div>
+                                <p>Select Door Type</p>
+                                {% for value, label in door_types %}
+                                <label>
+                                    <input class="input-field" type="radio" name="door_type" value="{{ value }}">{{ label }}
+                                </label>
+                            {% endfor %}
+                               
+                            </div><br>
+    
+                            <div>
+                                <p>Select Hanging Position</p>
+                                {% for position in hanging_positions %}
+                                    <label>
+                                        <input class="input-field" type="checkbox" name="hanging_position" value="{{ position.id }}">{{ position.Name }}
+                                    </label>
+                                {% endfor %}
+                                
+                            </div>
+                        </div>
+
+                        <div class="color-group">
+                            <div>
+                                <p>Select Colour Shades</p>
+                                {% for color in color_shades %}
+                                    <label>
+                                        <input class="input-field" type="checkbox" name="color_shade" value="{{ color.id }}">{{ color.Name }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="intro-y col-span-6 sm:col-span-12 door-types" id="size-fields-container">
+                        <p>Select Door Sizes</p>
+                        <div class="size" id="size_list">
+                            {% for size in sizes %}
+                                    <label>
+                                        <input class="input-field" type="checkbox" name="sizes" value="{{ size.id }}">{{ size.Name }}
+                                    </label>
+                            {% endfor %}
+                            <!-- <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x1200x90 mm | MS
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x1200x90 mm | MO
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x880x70 mm | SL
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x1080x90 mm 
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x1500x90 mm MS,MO
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x880x70 mm | 5"
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x980x70 mm | 6"
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x1080x70 mm | 9"
+                            </label>
+                            <label>
+                                <input type="checkbox" name="size" value="right">
+                                2050x1200x70 mm | 9"
+                            </label> -->
+                        </div>
+                    </div>
+                    <!-- Special Door Sizes -->
+                    <div class="intro-y col-span-6 sm:col-span-12 door-types " id="size-fields-container">
+                        <div class="size">
+                            <p>Select Special Sizes</p>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x880x70 mm | SL">
+                                2350x880x70 mm | SL
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x880x70 mm | ML">
+                                2350x880x70 mm | ML
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x980x70 mm">
+                                2350x980x70 mm 
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x1080x70 mm ">
+                                2350x1080x70 mm 
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x1200x70 mm">
+                                2350x1200x70 mm
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x1500x70 mm">
+                                2350x1500x70 mm
+                            </label>
+                            <label>
+                                <input type="checkbox" name="sizes" value="2350x1800x70 mm">
+                                2350x1800x70 mm
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="intro-y col-span-6 sm:col-span-12" >
+                        <label for="input-wizard-2" class="form-label">Enter new size</label>
+                        <input type="text" name="new_size" id="new_size" class="form-control first-size" >
+                    </div>
+
+                    <!-- Add Size Button -->
+                    <div class="intro-y col-span-6 sm:col-span-12 size-button">
+                        <button type="button" class="btn btn-primary" onclick="addSize()">Add Size</button>
+                    </div>
+
+                   
+                    <div class="intro-y col-span-6 flex items-center justify-center sm:justify-end mt-5">
+                        <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function addSize() {
+        const newSizeInput = document.getElementById('new_size');
+        const sizeList = document.getElementById('size_list');
+
+        // Get the new size name from the input field
+        const newSizeName = newSizeInput.value.trim();
+        if (newSizeName === '') {
+            alert('Please enter a size name.');
+            return;
+        }
+
+        // Create a new checkbox for the new size
+        const newSizeLabel = document.createElement('label');
+        const newSizeCheckbox = document.createElement('input');
+        newSizeCheckbox.type = 'checkbox';
+        newSizeCheckbox.name = 'sizes';
+        newSizeCheckbox.value = newSizeName;
+        newSizeCheckbox.checked = true;
+        newSizeLabel.appendChild(newSizeCheckbox);
+        newSizeLabel.appendChild(document.createTextNode(' ' + newSizeName));
+
+        // Add the new size checkbox to the list
+        sizeList.appendChild(newSizeLabel);
+
+        // Clear the input field
+        newSizeInput.value = '';
+    }
+</script>
+
+
+{% endblock content %}

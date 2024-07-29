@@ -1,0 +1,30 @@
+.cardsInner-blogs {
+    padding: 35px 0px 70px;
+}
+.curr-location div{
+    width: 1200px;
+}
+.curr-location{
+  padding:35px 0px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.blogsDetailsCard {
+    width: 80%;
+    border-radius: 15px !important;
+}
+
+@media screen and (max-width:476px) {
+    .blogsDetailsCard {
+        width: 100% !important;
+        margin: 0px 10px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .blogsDetailsCard {
+        width: 80%;
+    }
+
+}

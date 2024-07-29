@@ -1,0 +1,129 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'style/services.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+    .alert-success {
+        background: #7cfd7c;
+    }
+    .alert-error {
+        background: #ff3a3a;
+    }
+</style> 
+
+<link rel="stylesheet" href="{% static 'dashboard/frontpage/css/dealer.css' %}" />
+
+ <!-- BEGIN: Notification -->
+ {% if messages %}
+ {% for message in messages %}
+     <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+         <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+         <span>{{ message }}</span>
+     </div>
+ {% endfor %}
+ {% endif %}
+ <!-- BEGIN: Notification -->
+
+<section class="inner-contents">
+    <div class=" position-relative">
+        <div class="banner-img ">
+            <img class="banner-product" src="{% static 'assets/images/330x1496.webp' %}" alt="">
+            <img class="banner-productImg" src="{% static 'assets/images/476x300.webp' %}" alt="">
+        </div>
+        <div class="innerpage-cnt text-center m-b-70">
+            <h5 class="title-sub text-black">PETRA STEEL DOORS</h5>
+            <h2 class="title-1">Warranty</h2>
+        </div>
+    </div>
+</section>
+
+<section class=" d-flex flex-column align-items-center row-gap-5">
+    <div class="dlrs-cnt">
+        <div class="form-imgService">
+            <img src="{% static 'assets/images/460x560-01.webp' %}" alt="">
+        </div>
+        <div class="d-flex flex-column row-gap-4 pt-4 ">
+            <div class="text-center py-sm-2">
+                <h2 class="title-1">Register Warranty</h2>
+                <h5 style="font-size:13px;" class="text-black pt-2 ">
+                    We are experts in steel door Manufacturing <br> our design
+                    Gain your competitive edge</h5>
+            </div>
+
+            <form method="post" action="{% url 'registerWarranty' %}" class="mt-4">
+                {% csrf_token %}
+                <div class="input-section mb-3">
+                    <div class="input-sp">
+                        <input class="input" name="name" placeholder="Enter Your Name" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="input-section mb-3">
+                    <div class="input-sp">
+                        <input class="input" name="address" placeholder="Enter Your Address" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="input-section mb-3">
+                    <div class="input-sp">
+                        <input class="input" name="contact" placeholder="Enter Your Contact Number" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="input-section mb-3">
+                    <div class="input-sp">
+                        <input class="input" name="warranty" placeholder="Enter Your Warranty Code" type="text" autocomplete="off">
+                    </div>
+                </div>
+                <div class="input-section mb-3">
+                    <div class="input-sp">
+                        <textarea class="input pb-5" name="dealer" placeholder="Enter Your Dealer's Name & Address" autocomplete="off"></textarea>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-center">
+                    <button class="submit-delers">Submit</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                alertBox.classList.add('alert-hide');
+                setTimeout(function() {
+                    alertBox.style.display = 'none';
+                }, 500); // Match this with the slideUp animation duration
+            }
+        }, 4000); // 4 seconds
+    });
+
+    // Clear messages from session storage after displaying them
+    document.addEventListener('DOMContentLoaded', function() {
+        if (sessionStorage.getItem('form_submitted')) {
+            sessionStorage.removeItem('form_submitted');
+        } else {
+            const alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                alertBox.style.display = 'none';
+            }
+        }
+
+        // Set session storage to indicate form was submitted
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function() {
+            sessionStorage.setItem('form_submitted', 'true');
+        });
+    });
+</script>
+
+{% endblock %}

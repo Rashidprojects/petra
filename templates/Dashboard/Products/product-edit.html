@@ -1,0 +1,105 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+{% endblock page %}
+
+{% block content %}
+
+<div class="content">
+
+    <!-- BEGIN: Notification -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <!-- BEGIN: Notification -->
+
+    <div class="intro-y box py-10 sm:py-10 mt-5">
+
+        <h2 class="text-primary text-center font-medium" style=" font-size: 30px;">Edit Product</h2>
+        
+        <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Door Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ product.Name }}" required>
+                    </div>
+
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 1</label>
+                        <input name="image" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                        {% if product.Image %}
+                            <img src="{{ product.Image.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">
+                        {% endif %}
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 2</label>
+                        <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                        {% if product.Image2 %}
+                            <img src="{{ product.Image2.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">
+                        {% endif %}
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Image 3</label>
+                        <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
+                        <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                        {% if product.Image3 %}
+                            <img src="{{ product.Image3.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">
+                        {% endif %}
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Description</label>
+                        <textarea name="description" rows="10" cols="5" class="form-control" required>{{ product.Description }}</textarea>
+                    </div> <br>
+
+                    {% comment %} <div class="intro-y col-span-12 sm:col-span-6" id="size-fields-container">
+                        <h3>Door Sizes</h3>
+                        {% if not premium.premium_sizes.all %}
+                            <div class="intro-y col-span-12 sm:col-span-6">
+                                <input type="text" name="sizes" class="form-control first-size">
+                            </div>
+                        {% else %}
+                            {% for size in premium.premium_sizes.all %}
+                                <div class="intro-y col-span-12 sm:col-span-12">
+                                    <div class="intro-y col-span-12 sm:col-span-12">
+                                        <div class="flex items-center delete">
+                                            <input type="text" name="sizes" class="form-control first-size" value="{{ size.size }}" style="flex: 1;">
+                                            <a onclick="delete_premiumSize('{{size.id}}')" class="flex items-center text-danger ml-2 delete-icon" style=" position: absolute;right: 9px;bottom: 30px;" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal"> 
+                                                <i data-lucide="trash" class="w-4 h-4"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div> {% endcomment %}
+
+                    <!-- Add Size Button -->
+                    <div class="intro-y col-span-12 sm:col-span-12">
+                        <button type="button" class="btn btn-primary" id="add-size-btn">Add Size</button>
+                    </div>
+
+                    <div class="intro-y col-span-12 flex items-center justify-center sm:justify-end mt-5">
+                        <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+.cards-blogs {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 50px;
+    padding: 70px 0px;
+    margin: 0 auto;
+    max-width: 1120px;
+    /* Optional: Set a maximum width */
+}
+
+.cards-blogs .card {
+    border-radius: 15px;
+}
+
+
+
+
+@media screen and (max-width: 1232px) {
+    .cards-blogs {
+        grid-template-columns: auto auto auto;
+        justify-content: center;
+    }
+
+}
+
+@media screen and (max-width:852px) {
+    .cards-blogs {
+        grid-template-columns: auto auto;
+        justify-content: center;
+    }
+
+}
+
+@media screen and (max-width:580px) {
+    .cards-blogs {
+        grid-template-columns: auto;
+        justify-content: center;
+    }
+
+}

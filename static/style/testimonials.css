@@ -1,0 +1,6 @@
+.tesi-pr {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    padding: 70px 5%;
+}

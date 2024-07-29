@@ -1,0 +1,59 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{%static 'style/blogs.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="inner-contents">
+    <div class=" position-relative">
+        <div class="banner-img ">
+            <img class="banner-product" src="{% static 'assets/images/330x1496.webp' %}" alt="">
+            <img class="banner-productImg" src="{% static 'assets/images/476x300.webp' %}" alt="">
+        </div>
+        <div class="innerpage-cnt text-center m-b-70">
+            <h5 class="title-sub text-black">PETRA STEEL DOORS</h5>
+            <h2 class="title-1">Blogs</h2>
+        </div>
+    </div>
+</section>
+
+<section class="cards-blogs">
+   {% for blog in blogs %}
+    <div class="card" style="width:25rem;overflow: hidden;">
+        <img class="card-img-top" src="{{blog.Image.url}}" alt="Card image cap">
+        <div class="card-body">
+            <div class="py-2 ">
+                <i class="fa-solid fa-calendar-days"></i>
+                {{blog.Date}}
+            </div>
+            <h5>
+                {{blog.Title}}
+            </h5>
+            <p class="py-3">{{blog.Description}}</p>
+            <a href="{{blog.get_url}}" class="btn btn-dark w-100 ">Read More</a>
+        </div>
+    </div>
+   {% endfor %}
+    {% comment %} <div class="card" style="width:25rem;overflow: hidden;">
+        <img class="card-img-top" src="{% static 'assets/images/450x250-03.webp' %}" alt="Card image cap">
+        <div class="card-body">
+            <div class="py-2 ">
+                <i class="fa-solid fa-calendar-days"></i>
+                26,2024
+            </div>
+            <h5>
+                Behind the Steel: Crafting Petra Doors for Durability and Design
+            </h5>
+            <p class="py-3">Stay updated with Petra Steel Doors' blog for expert tips on home security, design inspiration, and the latest trends in steel door technology</p>
+            <a href="blogsDetails.html" class="btn btn-dark w-100 ">Read More</a>
+        </div>
+    </div> {% endcomment %}
+
+
+
+    
+</section>
+
+{% endblock %}

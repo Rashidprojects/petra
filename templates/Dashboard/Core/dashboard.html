@@ -1,0 +1,142 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="grid grid-cols-12 gap-6">
+        <div class="col-span-12 2xl:col-span-9">
+            <div class="grid grid-cols-12 gap-6">
+                <!-- BEGIN: General Report -->
+                <div class="col-span-12 mt-8">
+                    <div class="intro-y flex items-center h-10">
+                        <h2 class="text-lg font-medium truncate mr-5">
+                            General Report
+                        </h2>
+                        <a href="" class="ml-auto flex items-center text-primary"> <i data-lucide="refresh-ccw" class="w-4 h-4 mr-3"></i> Reload Data </a>
+                    </div>
+                    <div class="grid grid-cols-12 gap-6 mt-5">
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-lucide="image" class="report-box__icon text-primary"></i> 
+                                        <!-- <div class="ml-auto">
+                                            <div class="report-box__indicator bg-success tooltip cursor-pointer" title="33% Higher than last month"> 33% <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">{{ images }}</div>
+                                    <div class="text-base text-slate-500 mt-1">Number of Images</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-lucide="gift" class="report-box__icon text-pending"></i> 
+                                        <!-- <div class="ml-auto">
+                                            <div class="report-box__indicator bg-danger tooltip cursor-pointer" title="2% Lower than last month"> 2% <i data-lucide="chevron-down" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">{{ events }}</div>
+                                    <div class="text-base text-slate-500 mt-1">Total Events</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-lucide="file" class="report-box__icon text-warning"></i> 
+                                        <!-- <div class="ml-auto">
+                                            <div class="report-box__indicator bg-success tooltip cursor-pointer" title="12% Higher than last month"> 12% <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">{{ reviews }}</div>
+                                    <div class="text-base text-slate-500 mt-1">Total Reviews</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <i data-lucide="user" class="report-box__icon text-success"></i> 
+                                        <!-- <div class="ml-auto">
+                                            <div class="report-box__indicator bg-success tooltip cursor-pointer" title="22% Higher than last month"> 22% <i data-lucide="chevron-up" class="w-4 h-4 ml-0.5"></i> </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">{{ visitors | default:0 }}</div>
+                                    <div class="text-base text-slate-500 mt-1">Unique Visitor</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: General Report -->
+            </div>
+        </div>
+
+        <div class="col-span-12">
+            <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 20px;">Recent Enquiries</h2>
+        </div>
+        <!-- BEGIN: Weekly Top Products -->
+        <div class="col-span-12 mt-3 border-t border-dark pt-2">
+            <div class="intro-y overflow-auto lg:overflow-visible mt-5 sm:mt-0">
+                {% if enquiries %}
+                    <table class="table table-report sm:mt-2">
+                        <thead>
+                            <tr>
+                                <th class="text-center whitespace-nowrap">SL NO</th>
+                                <th class="text-center whitespace-nowrap">NAME</th>
+                                <th class="text-center whitespace-nowrap">MOBILE</th>
+                                <th class="text-center whitespace-nowrap">EMAIL</th>
+                                <th class="text-center whitespace-nowrap">PLACE</th>
+                                <th class="text-center whitespace-nowrap">ADDED DATE</th>
+                                <th class="text-center whitespace-nowrap">ENQUIRY</th>
+                                <th class="text-center whitespace-nowrap">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enquiry in enquiries %}
+                                <tr class="intro-x">
+                                    <td class="text-center whitespace-nowrap">{{ forloop.counter }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ enquiry.Name }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ enquiry.Mobile }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ enquiry.Email }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ enquiry.Place }}</td>
+                                    <td class="text-center whitespace-nowrap">{{ enquiry.Date | date:'d M Y' }}</td>
+                                    <td class="text-center">{{ enquiry.Message }}</td>
+                                    <td class="table-report__action w-48">
+                                        <div class="flex justify-center items-center">
+                                            <a onclick="delete_enquiry('{{enquiry.id}}')" class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal"> 
+                                                <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-3">
+                    <table class="table table-report -mt-2">
+                        <tbody>
+                            <tr class="intro-x width"> 
+                                <td class=" width" style="width:100%;">
+                                    <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                        background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                    </i>
+                                <div style="text-align: center;">No data available!</div>
+                                </td>   
+                            </tr>    
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- END: Weekly Top Products -->
+    </div>
+</div>
+{% endblock content %}

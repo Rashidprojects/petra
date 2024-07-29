@@ -1,0 +1,75 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{%static 'style/testimonials.css' %}">
+<style>
+    .iframe-wrappers { 
+        position: relative;
+        width: 552px;
+    }
+    .iframe-wrappers iframe .ytp-impression-link {
+        display:none;
+    }
+    .iframe-containers{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 35px 0px;
+        gap: 23px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<section class="inner-contents">
+    <div class=" position-relative">
+        <div class="banner-img ">
+            <img class="banner-product" src="{% static 'assets/images/330x1496.webp' %}" alt="">
+            <img class="banner-productImg" src="{% static 'assets/images/476x300.webp' %}" alt="">
+        </div>
+        <div class="innerpage-cnt text-center m-b-70">
+            <h5 class="title-sub text-black">PETRA STEEL DOORS</h5>
+            <h2 class="title-1">Testimonials</h2>
+        </div>
+    </div>
+</section>
+
+<section class="tesi-pr">
+    <div>
+        <div class="iframe-containers">
+            {% for video in videos %} 
+                <div class="iframe-wrappers">
+                    <iframe width="560" height="315" src="{{ video.Link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            {% endfor %}
+                
+        </div>
+       
+    </div>
+
+</section>
+
+<style>
+    /* Add this to your CSS file or within a <style> tag in base.html */
+.iframe-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 35px 47px;
+    gap: 23px;
+    
+}
+
+.iframe-wrapper {
+    position: relative;
+    width: 320px;
+    height: 495px;
+}
+
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item active" aria-current="page">Manage Blogs</li>
+{% endblock page %}
+
+{% block content %}
+
+<div class="content">
+
+    <!-- BEGIN: Notification -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <!-- BEGIN: Notification -->
+
+    <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 30px;">Manage Blogs</h2>
+    <!-- BEGIN: Weekly Top Products -->
+    <div class="col-span-12 mt-6 border-t border-dark pt-5">
+        <div class="intro-y block sm:flex items-center h-10">
+            <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+                <!-- <button class="btn btn-primary box flex items-center text-slate-600 dark:text-slate-300"> <i data-lucide="file-text" class="hidden sm:block w-4 h-4 mr-2"></i> Export to Excel </button> -->
+                <!-- <button class="ml-3 btn btn-primary box flex items-center text-slate-600 dark:text-slate-300"> <i data-lucide="file-text" class="hidden sm:block w-4 h-4 mr-2"></i> Export to PDF </button> -->
+                <a href="{% url 'add-blog' %}"><button class="btn btn-primary ml-3">Add New Blog</button></a>
+            </div>
+        </div>
+        <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+            {% if blogs %}
+                <table class="table table-report sm:mt-2">
+                    <thead>
+                        <tr>
+                            <th class="text-center whitespace-nowrap">SL NO</th>
+                            <th class="text-center whitespace-nowrap">BLOG TITLE</th>
+                            <th class="text-center whitespace-nowrap">BLOG IMAGE</th>
+                            <th class="text-center whitespace-nowrap">BLOG DESCRIPTION</th>
+                            <th class="text-center whitespace-nowrap">ADDED DATE </th>
+                            <th class="text-center whitespace-nowrap">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for blog in blogs %}
+                            <tr class="intro-x">
+                                <td class="text-center whitespace-nowrap">{{ forloop.counter }}</td>
+                                <td class="text-center whitespace-nowrap">{{ blog.Title }}</td>
+                                <td class="flex justify-center">
+                                    <div class="w-10 h-10 image-fit zoom-in">
+                                        <img alt="Midone - HTML Admin Template" class="tooltip" src="{{ blog.Image.url }}" title="Uploaded at 27 May 2021" data-action="zoom">
+                                    </div>
+                                </td>
+                                <td class="text-center whitespace-nowrap">{{ blog.Description }}</td>
+                                <td class="text-center whitespace-nowrap">{{ blog.Date }}</td>
+                                <td class="table-report__action w-48">
+                                    <div class="flex justify-center items-center">
+                                        <a onclick="delete_blog('{{blog.id}}')" class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal"> 
+                                            <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
+                                        </a>
+                                        <a class="flex items-center text-primary" href="{% url 'edit-blog' blog.id %}"> 
+                                            <i data-lucide="edit" class="w-4 h-4"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+            <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible mt-3">
+                <table class="table table-report -mt-2">
+                    <tbody>
+                        <tr class="intro-x width"> 
+                            <td class=" width" style="width:100%;">
+                                <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
+                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                </i>
+                            <div style="text-align: center;">No data available!</div>
+                            </td>   
+                        </tr>    
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END: Weekly Top Products -->
+</div>
+
+<!-- BEGIN: Delete Confirmation Modal -->
+<div id="delete-modal" class="modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="{% url 'delete-blog' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="blog_id" id="blog_id">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="p-5 text-center">
+                        <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
+                        <div class="text-3xl mt-5">Are you sure?</div>
+                        <div class="text-slate-500 mt-2">Do you really want to delete these records? <br>This process cannot be undone.</div>
+                    </div>
+                    <div class="px-5 pb-8 text-center">
+                        <button type="button" data-tw-dismiss="modal" class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
+                        <button type="submit" class="btn btn-danger w-24">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END: Delete Confirmation Modal -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    function delete_blog(blog_id){
+        $('#blog_id').val(blog_id)
+    }
+</script>
+
+{% endblock content %}

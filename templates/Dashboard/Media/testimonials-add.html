@@ -1,0 +1,98 @@
+{% extends 'Dashboard/base.html' %}
+{% load static %}
+
+{% block page %} 
+    <li class="breadcrumb-item active" aria-current="page">Add Testimonials</li>
+{% endblock page %}
+
+{% block content %}
+<style>
+    .door-types p {
+        font-size: 20px;
+        font-weight: 500;
+        margin: 7px 0;
+    }
+    .door-types label {
+        font-size: 15px;
+        padding: 2px 0px;
+        margin-right: 7px;
+    }
+    .size-button {
+        padding-top: 28px;
+    }
+    .group {
+        display: flex;
+        justify-content: space-around;
+    }
+    .color-group {
+        margin-left: 71px;
+        margin-top: 32px;
+    }
+    .size {
+        display: flex;
+        flex-direction: column;
+    }
+    .input-field {
+        margin-right: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .group {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .color-group {
+            margin-left: 0;
+            margin-top: 32px;
+        }
+    }
+    .size label {
+        margin: 5px 0;
+    }
+</style>
+
+<div class="content">
+
+    <!-- BEGIN: Notification -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+            <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+            <span>{{ message }}</span>
+            <button type="button" class="btn-close text-white" data-tw-dismiss="alert" aria-label="Close"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+    <!-- BEGIN: Notification -->
+
+    <div class="intro-y box py-10 sm:py-10 mt-5">
+
+        <h2 class="text-primary text-center font-medium" style=" font-size: 30px;">Add Testimonials</h2>
+        
+        <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Testimonial Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Testimonial Link</label>
+                        <input type="text" name="link" id=""  class="form-control" placeholder="Enter video link"></input>
+                    </div>
+                   
+                    <div class="intro-y col-span-6 flex items-center justify-center sm:justify-end mt-5">
+                        <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}

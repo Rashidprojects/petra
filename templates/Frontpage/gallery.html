@@ -1,0 +1,40 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{% static 'style/gallery.css' %}" />
+  <link rel="stylesheet" href="{% static 'style/lightbox.css' %}">
+  <link rel="stylesheet" href="{% static 'style/product.css' %}" />{% endblock %}
+
+{% block content %}
+
+<!-- Page Header Start here -->
+<section class="inner-contents">
+  <div class=" position-relative">
+      <div class="banner-img ">
+          <img class="banner-product" src="{% static 'assets/images/330x1496.webp' %}" alt="">
+          <img class="banner-productImg" src="{% static 'assets/images/476x300.web' %}p" alt="">
+      </div>
+      <div class="innerpage-cnt text-center m-b-70">
+          <h5 class="title-sub text-black">PETRA STEEL DOORS</h5>
+          <h2 class="title-1">Gallery</h2>
+      </div>
+  </div>
+</section>
+
+<div class="container-gallery">
+  <div class="gallery">
+      {% for image in images %}
+      <a class="gallery-images-inner" href="{{ image.Image.url }}" data-lightbox="models" data-title="{{ data.caption }}">
+          <img src="{{ image.Image.url }}" alt="">
+      </a>
+      {% endfor %}
+      
+      {% comment %} <a class="gallery-images-inner" href="./assets/images/460x560-02.webp" data-lightbox="models" data-title="caption1">
+          <img src="./assets/images/460x560-02.webp" alt="">
+      </a>  {% endcomment %}
+      
+  </div>
+</div>
+
+{% endblock content %}

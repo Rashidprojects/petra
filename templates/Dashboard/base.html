@@ -1,0 +1,272 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="light">
+    <!-- BEGIN: Head -->
+    <head>
+        <meta charset="utf-8">
+        <link href="{% static 'dashboard/images/logo.png' %}" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="Kamarudheen">
+
+        {% block title %}
+            <title>Dashboard | Petra</title>
+        {% endblock title %}
+
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="{% static 'dashboard/css/app.css' %}" />
+        <link rel="stylesheet" href="{% static 'dashboard/css/premium.css' %}" />
+        <!-- END: CSS Assets-->
+
+        <style>
+            .file {
+                border: solid 1px;
+                padding: 5px;
+                border-color: rgb(var(--color-slate-200) / var(--tw-border-opacity));
+            }
+            html {
+                {% comment %} background-color:rgb(var(--color-dark) / 1); {% endcomment %}
+                background-color : #6c7075;
+            }
+
+            .top-nav > ul li .top-menu.top-menu--active .top-menu__icon{
+                color: rgb(var(--color-dark) / var(--tw-text-opacity));
+            }
+            .top-menu {
+                position: relative;
+            }
+
+            .top-menu span {
+                position: absolute;
+                top: -7px;
+                right: -4px;
+                background: #ff2f00;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                text-align: center;
+                color: #fff;
+            }
+
+        </style>
+    </head>
+    <!-- END: Head -->
+    <body class="py-5">
+        <!-- BEGIN: Mobile Menu -->
+        <div class="mobile-menu md:hidden">
+            <div class="mobile-menu-bar">
+                <a href="" class="flex mr-auto">
+                    <img alt="Midone - HTML Admin Template" src="{% static 'assets/images/Petra-logo.png' %}" style="width: 60px;">
+                </a>
+                <a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+            </div>
+            <div class="scrollable">
+                <a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="x-circle" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+                <ul class="scrollable__content py-2">
+                    <li>
+                        <a href="{% url 'dashboard' %}" class="menu menu--active">
+                            <div class="menu__icon"> <i data-lucide="home"></i> </div>
+                            <div class="menu__title"> Dashboard </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Gallery </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Enquiries </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Premiums </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Singles </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Doubles </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- END: Mobile Menu -->
+        <!-- BEGIN: Top Bar -->
+        <div class="border-b border-white/[0.08] mt-[2.2rem] md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 pt-3 md:pt-0 mb-10">
+            <div class="top-bar-boxed flex items-center">
+                <!-- BEGIN: Logo -->
+                <a href="" class="-intro-x hidden md:flex">
+                    <img alt="Midone - HTML Admin Template" src="{% static 'assets/images/Petra-logo.png' %}" style="width: 80px;">
+                    <!-- <span class="text-white text-lg ml-3"> Rubick </span>  -->
+                </a>
+                <!-- END: Logo -->
+
+                <!-- BEGIN: Breadcrumb -->
+                <nav aria-label="breadcrumb" class="-intro-x h-full mr-auto">
+                    <ol class="breadcrumb breadcrumb-light">
+                        <li class="breadcrumb-item"><a href="#">Application</a></li>
+                        {% block page %}
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        {% endblock page %}
+                    </ol>
+                </nav>
+                <!-- END: Breadcrumb -->
+
+                <!-- BEGIN: Search -->
+                <div class="intro-x relative mr-3 sm:mr-6">
+                    <div class="search hidden sm:block">
+                        <input type="text" class="search__input form-control border-transparent" placeholder="Search...">
+                        <i data-lucide="search" class="search__icon dark:text-slate-500"></i> 
+                    </div>
+                    <a class="notification notification--light sm:hidden" href=""> <i data-lucide="search" class="notification__icon dark:text-slate-500"></i> </a>
+                   
+                </div>
+               
+                <!-- END: Notifications -->
+                <!-- BEGIN: Account Menu -->
+                <div class="intro-x dropdown w-8 h-8">
+                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                        <img alt="Midone - HTML Admin Template" src="{% static 'dashboard/images/profile-8.jpg' %}">
+                    </div>
+                    <div class="dropdown-menu w-56">
+                        <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
+                            <li class="p-2">
+                                <div class="font-medium">{{ user.username }}</div>
+                                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Super Admin</div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider border-white/[0.08]">
+                            </li>
+                            
+                            <li>
+                                <a href="{% url 'sign-out' %}" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END: Account Menu -->
+            </div>
+        </div>
+        <!-- END: Top Bar -->
+        <!-- BEGIN: Top Menu -->
+        <nav class="top-nav">
+            <ul>
+                <li>
+                    <a href="{% url 'dashboard' %}" class="top-menu ">
+                        <div class="top-menu__icon"> <i data-lucide="home"></i> </div>
+                        <div class="top-menu__title"> Dashboard </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'manage-products' %}" class="top-menu ">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Products </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'manage-enquirys' %}" class="top-menu ">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Enquiries </div>
+                        {% if total_unread_enquirys > 0 %}
+                        <span> {{total_unread_enquirys}} </span>
+                        {% endif %}
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'manage-complaints' %}" class="top-menu ">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Services </div>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="{% url 'manage-testimonials' %}" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Testimonials </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'manage-gallery' %}" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Gallery </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'manage-blogs' %}" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Blogs </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'enquiries' %}" class="top-menu">
+                        <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
+                        <div class="top-menu__title"> Contacts </div>
+                    </a>
+                </li>
+
+                
+            </ul>
+        </nav>
+        <!-- END: Top Menu -->
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const navLinks = document.querySelectorAll('.top-menu');
+    
+                // Retrieve the stored active link from localStorage
+                const activeLinkHref = localStorage.getItem('activeLinkHref');
+    
+                // Apply the active class to the stored link
+                if (activeLinkHref) {
+                    navLinks.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href === activeLinkHref) {
+                            link.classList.add('top-menu--active');
+                        }
+                    });
+                }
+    
+                // Set up the click event listeners
+                navLinks.forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        // Store the href of the clicked link in localStorage
+                        localStorage.setItem('activeLinkHref', link.getAttribute('href'));
+                    });
+                });
+            });
+        </script>
+        
+        
+
+        <!-- BEGIN: Content -->
+        {% block content %}
+            
+        {% endblock content %}
+        <!-- END: Content -->
+        
+        <!-- BEGIN: JS Assets-->
+         
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
+        <script src="{% static 'dashboard/js/app.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="{% static 'dashboard/js/block.js' %}"></script>
+        <!-- END: JS Assets-->
+    </body>
+</html>

@@ -1,0 +1,205 @@
+{% extends 'Frontpage/base.html' %}
+{% load static %}
+{% block extra_styles %}
+<link rel="stylesheet" href="{%static 'style/contactus.css' %}">
+{% endblock %}
+{% block content %}
+
+<style>
+    .alert-success {
+        background: #84cc16;
+    }
+    .alert-error {
+        background: #ff3a3a;
+    }
+</style> 
+
+ <!-- BEGIN: Notification -->
+ {% if messages %}
+ {% for message in messages %}
+     <div class="intro-y col-span-11 alert alert-{{ message.tags }} alert-dismissible show flex items-center mb-6 mt-5 text-white" role="alert">
+         <span><i data-lucide="info" class="w-4 h-4 mr-2"></i></span>
+         <span>{{ message }}</span>
+     </div>
+ {% endfor %}
+ {% endif %}
+ <!-- BEGIN: Notification -->
+
+<!-- Page Header Start here -->
+<section class="inner-contents">
+  <div class=" position-relative">
+      <div class="banner-img ">
+              <img class="banner-product" src="{% static 'assets/images/330x1496.webp' %}" alt="">
+          <img class="banner-productImg" src="{% static 'assets/images/476x300.webp' %}" alt="">
+      </div>
+      <div class="innerpage-cnt text-center m-b-70">
+          <h5 class="title-sub text-black">PETRA STEEL DOORS</h5>
+          <h2 class="title-1">Contact Us</h2>
+      </div>
+  </div>
+</section>
+<div class="container-contactus">
+  <span class="big-circle"></span>
+  <img src="img/shape.png" class="square" alt="" />
+  <div class="form">
+      <div class="contact-info">
+          <h3 class="title">Let's get in touch</h3>
+          <p class="text mt-4">
+              There is no compromise on security or style. Invest in petra for your lasting dreams
+          </p>
+
+          <div class="info mt-3">
+              <div class="information">
+                  <i class="fas fa-map-marker-alt"></i> &nbsp &nbsp
+
+                  <p>92 Cherry Drive Uniondale, NY 11553</p>
+              </div>
+              <div class="information">
+                  <i class="fas fa-envelope"></i> &nbsp &nbsp
+                  <a class="text-decoration-none text-black"
+                      href="mailto:info@petradoor.com">info@petradoor.com</a>
+              </div>
+              <div class="contactInformation">
+                  <div>
+                      <p><b>Bangalore Office</b></p>
+                      <div class="information">
+                          <i class="fas fa-phone"></i>&nbsp&nbsp
+                          <a class="text-decoration-none text-black" href="tel:+91 9538212136">+91 9538212136</a>
+                      </div>
+                      <div class="information">
+                          <i class="fas fa-phone"></i>&nbsp&nbsp
+                          <a class="text-decoration-none text-black" href="tel:+91 9886753557">+91 9886753557</a>
+                      </div>
+                      <div class="information">
+                          <i class="fas fa-phone"></i>&nbsp&nbsp
+                          <a class="text-decoration-none text-black" href="tel:+91 9526835575">+91 9526835575</a>
+                      </div>
+
+                  </div>
+                  <div>
+                      <p><b>Calicut Office</b></p>
+                      <div class="information">
+                          <i class="fas fa-phone"></i>&nbsp&nbsp
+                          <a class="text-decoration-none text-black" href="tel:+91 9538212136">+91 9538212136</a>
+                      </div>
+                      <div class="information">
+                          <i class="fas fa-phone"></i>&nbsp&nbsp
+                          <a class="text-decoration-none text-black" href="tel:+91 9745095972">+91 9745095972</a>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <p><b>Kochi Office</b></p>
+                  <div class="information">
+                      <i class="fas fa-phone"></i>&nbsp&nbsp
+                      <a class="text-decoration-none text-black" href="tel:+91 9538212136">+91 9538212136</a>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="social-media-contact">
+              <p>Connect with us :</p>
+              <div class="social-icons">
+                  <a href="https://m.facebook.com/petrasteeldoor/">
+                      <i class="fab fa-facebook-f"></i>
+                  </a>
+
+                  <a href="https://instagram.com/petrasteeldoor">
+                      <i class="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://wa.me/919072704444">
+                      <i class="fab fa-whatsapp"></i>
+                  </a>
+              </div>
+          </div>
+      </div>
+
+      <div class="contact-form">
+          <span class="circle one"></span>
+          <span class="circle two"></span>
+
+          <form method='post' action="{% url 'contact' %}" autocomplete="off">
+              {% csrf_token %}
+              <h3 class="title">Contact us</h3>
+              <div class="input-container mt-4">
+                  <input type="text" placeholder="Name" name="name" class="inputContact" />
+                  <span>Name</span>
+              </div>
+              <div class="input-container">
+                  <input type="email" placeholder="Email" name="email" class="inputContact" />
+                  <span>Email</span>
+              </div>
+              <div class="input-container">
+                  <input type="" placeholder="Place" name="place" class="inputContact" />
+                  <span>Place</span>
+              </div>
+              <div class="input-container">
+                  <input type="tel" placeholder="Phone" name="mobile" class="inputContact" />
+                  <span>Phone</span>
+              </div>
+              <div class="input-container textarea">
+                  <textarea name="message" placeholder="Message" class="inputContact"></textarea>
+                  <span>Message</span>
+              </div>
+              <input type="submit" value="Send" class="btn-contact" />
+          </form>
+      </div>
+  </div>
+</div>
+
+<script>
+  const inputs = document.querySelectorAll(".input");
+
+  function focusFunc() {
+      let parent = this.parentNode;
+      parent.classList.add("focus");
+  }
+
+  function blurFunc() {
+      let parent = this.parentNode;
+      if (this.value == "") {
+          parent.classList.remove("focus");
+      }
+  }
+
+  inputs.forEach((input) => {
+      input.addEventListener("focus", focusFunc);
+      input.addEventListener("blur", blurFunc);
+  });
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                alertBox.classList.add('alert-hide');
+                setTimeout(function() {
+                    alertBox.style.display = 'none';
+                }, 500); // Match this with the slideUp animation duration
+            }
+        }, 4000); // 4 seconds
+    });
+
+    // Clear messages from session storage after displaying them
+    document.addEventListener('DOMContentLoaded', function() {
+        if (sessionStorage.getItem('form_submitted')) {
+            sessionStorage.removeItem('form_submitted');
+        } else {
+            const alertBox = document.querySelector('.alert');
+            if (alertBox) {
+                alertBox.style.display = 'none';
+            }
+        }
+
+        // Set session storage to indicate form was submitted
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function() {
+            sessionStorage.setItem('form_submitted', 'true');
+        });
+    });
+</script>
+
+{% endblock content %}
