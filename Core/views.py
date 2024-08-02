@@ -1,7 +1,7 @@
 import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from Core.models import Product, HangingPosition,ColorShade,Size,Quote,FindDealers,NewDealers,Complaints,Testimonials,Gallery,Blogs,Contact
+from Core.models import Product, HangingPosition,ColorShade,Size, Material ,Quote,FindDealers,NewDealers,Complaints,Testimonials,Gallery,Blogs,Contact
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -30,26 +30,23 @@ def add_product(request):
     if request.method == 'POST':
         try:
             name = request.POST.get('name')
-            image = request.FILES.get('image')
-            image2 = request.FILES.get('image2')
-            image3 = request.FILES.get('image3')
-            image4 = request.FILES.get('image4')
-            image5 = request.FILES.get('image5')
+            images = [request.FILES.get(f'image{i}') for i in range(1, 6)]
             desc = request.POST.get('description')
             door_type = request.POST.get('door_type')
             hanging_position = request.POST.getlist('hanging_position')
             color_shade = request.POST.getlist('color_shade')
+            material = request.POST.getlist('material')
             custom_sizes = request.POST.getlist('sizes')
 
 
-            if name and image and desc and door_type :
+            if name and images[0] and desc and door_type :
                 product = Product(
                     Name=name,
-                    Image=image,
-                    Image2=image2,
-                    Image3=image3,
-                    Image4=image4,
-                    Image5=image5,
+                    Image=images[0],
+                    Image2=images[1],
+                    Image3=images[2],
+                    Image4=images[3],
+                    Image5=images[4],
                     Description=desc,
                     Door_type=door_type
                 )
@@ -60,6 +57,9 @@ def add_product(request):
                 
                 color_objects = ColorShade.objects.filter(id__in=color_shade)
                 product.Color_shade.set(color_objects)
+                
+                material_objects = Material.objects.filter(id__in=material)
+                product.Materials.set(material_objects)
                 
                 size_ids = []
                 for size in custom_sizes:
@@ -86,6 +86,7 @@ def add_product(request):
     door_types = Product.DOOR_TYPES
     hanging_positions = HangingPosition.objects.all().order_by('id')
     color_shades = ColorShade.objects.all().order_by('id')
+    materials = Material.objects.all().order_by('id')
     sizes = Size.objects.all().order_by('id')
 
 
@@ -93,8 +94,8 @@ def add_product(request):
         'door_types': door_types,
         'hanging_positions': hanging_positions,
         'color_shades' : color_shades,
+        'materials' : materials,
         'sizes' : sizes,
-
     })
 
 #----------------------------------- Delete Product -----------------------------------#

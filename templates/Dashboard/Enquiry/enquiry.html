@@ -100,7 +100,6 @@
                     </div>
                 </div>
                 <!-- END: General Report -->
-
             </div>
         </div>
 
@@ -476,8 +475,7 @@
     function delete_quote(quote_id){
         $('#quote_id').val(quote_id)
         // Ensure quotes section is displayed after delete
-        showQuotes();    
-    }
+        showQuotes();    }
 </script>
 <script>
     function delete_findDealer(findDealer_id){
@@ -493,32 +491,36 @@
          showNewDealers();
     }
 </script>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        function updateActiveEnquiryLink(clickedElement) {
+        // Function to update the active enquiry link based on the section
+        function updateActiveEnquiryLink(section) {
             // Remove the active class from all enquiry links
             const enquiryLinks = document.querySelectorAll('.enquiry-link .box');
             enquiryLinks.forEach(link => {
                 link.classList.remove('active-enquiry');
                 link.classList.add('inactive-enquiry');
-
             });
 
-            // Add the active class to the clicked element
-            clickedElement.classList.add('active-enquiry');
-            clickedElement.classList.remove('inactive-enquiry');
-
-            // Save the ID of the active element in localStorage
-            localStorage.setItem('activeEnquirySection', clickedElement.id);
+            // Add the active class to the link corresponding to the section
+            const activeLink = document.querySelector(`.enquiry-link .box[data-section="${section}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active-enquiry');
+                activeLink.classList.remove('inactive-enquiry');
+            }
         }
 
         // Attach click event listeners to all enquiry links
         const enquiryLinks = document.querySelectorAll('.enquiry-link .box');
         enquiryLinks.forEach(link => {
             link.addEventListener('click', function() {
-                updateActiveEnquiryLink(this);
+                const section = this.getAttribute('data-section');
+                updateActiveEnquiryLink(section);
+                localStorage.setItem('activeSection', section); // Store the active section in localStorage
             });
-        });
+        }); 
 
         // Check which section to display initially based on localStorage
         const activeSection = localStorage.getItem('activeSection') || 'quotes';
@@ -529,14 +531,18 @@
         } else if (activeSection === 'newDealers') {
             showNewDealers();
         }
+
+        // Update the active enquiry link based on the initial section
+        updateActiveEnquiryLink(activeSection);
     });
 
     function showQuotes() {
         document.getElementById('quotes-section').style.display = 'block';
         document.getElementById('findDealers-section').style.display = 'none';
-        document.getElementById('newDealers-section').style.display = 'none';
+        document.getElementById('newDealers-section').style.display = 'none'; 
         localStorage.setItem('activeSection', 'quotes');
-        updateActiveEnquiryClass('quotes');
+        document.getElementById('findDealers-link').classList.remove('active-enquiry');
+        updateActiveEnquiryLink('quotes');
     }
 
     function showFindDealers() {
@@ -544,7 +550,11 @@
         document.getElementById('findDealers-section').style.display = 'block';
         document.getElementById('newDealers-section').style.display = 'none';
         localStorage.setItem('activeSection', 'findDealers');
-        updateActiveEnquiryClass('findDealers');
+        document.getElementById('findDealers-link').classList.add('active-enquiry');
+        document.getElementById('findDealers-link').classList.remove('inactive-enquiry');
+        document.getElementById('quotes-link').classList.remove('active-enquiry');
+        document.getElementById('quotes-link').classList.add('inactive-enquiry');
+        updateActiveEnquiryLink('findDealers');
     }
 
     function showNewDealers() {
@@ -552,10 +562,14 @@
         document.getElementById('findDealers-section').style.display = 'none';
         document.getElementById('newDealers-section').style.display = 'block';
         localStorage.setItem('activeSection', 'newDealers');
-        updateActiveEnquiryClass('newDealers');
+        document.getElementById('newDealers-link').classList.add('active-enquiry');
+        document.getElementById('newDealers-link').classList.remove('inactive-enquiry');
+        document.getElementById('quotes-link').classList.remove('active-enquiry');
+        document.getElementById('quotes-link').classList.add('inactive-enquiry');
+        updateActiveEnquiryLink('newDealers');
     }
-
-    
 </script>
+
+
 </div>
 {% endblock content %}

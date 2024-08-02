@@ -142,6 +142,17 @@
                                 {% endfor %}
                             </div>
                         </div>
+
+                        <div class="color-group">
+                            <div>
+                                <p>Select Material Types</p>
+                                {% for material in materials %}
+                                    <label>
+                                        <input class="input-field" type="checkbox" name="material" value="{{ material.id }}">{{ material.Name }}
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
                         
                     </div>
 

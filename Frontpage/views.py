@@ -154,13 +154,16 @@ def submit_quote(request):
         door_hanging_position = request.POST.get('door_hanging_position')
         available_size = request.POST.get('available_size')
         available_color = request.POST.get('available_color')
+        material = request.POST.get('available_material')
+
 
         selection = Quote(
             Name=username,
             Contact=phone_number,
             Hanging_position=door_hanging_position,
             Size=available_size,
-            Color_shade =available_color
+            Color_shade =available_color,
+            Material = material,
         )
         selection.save()
         messages.success(request, 'Our team connect you soon !')

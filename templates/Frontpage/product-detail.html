@@ -80,7 +80,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            z-index: 10;
+            z-index: 1001;
         }
         .overlay {
             display: none;
@@ -90,6 +90,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
+            z-index : 1000;
         }
         .hidden-radio {
             display: none;
@@ -326,17 +327,22 @@
                                 
                             </div>
                         </div>
-                        <div class="product_display-rightsize">
+                        <div class="product_display-rightsize flex">
                             <h1>Available Material Types</h1>
-                            <div class="product_display-rightsize-sub mt-3">
-                                <button class="styled-button" data-value="Steel">Steel</button>
+                            <div class="flex">
+                                {% for material in product.Materials.all %}
+                                <div class="product_display-rightsize-sub mt-3">
+                                    <input type="radio" id="material-radio-{{ material.id }}" name="available_material" value="{{ material.Name }}" class="hidden-radio">
+                                    <button class="styled-button" id="material-button-{{ material.id }}" data-radio="material-radio-{{ material.id }}" >{{ material.Name }}</button>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
 
                         <div class="product_display-rightsize flex">
                             <h1>Available Color Shades</h1>
                             <div class="flex">
-                                {% for color in product.Color_shade.all %}
+                                 {% for color in product.Color_shade.all %}
                                 <div class="product_display-rightsize-sub mt-3 margin">
                                     <input type="radio" id="color-radio-{{ color.id }}" name="available_color" value="{{ color.Name }}" class="hidden-radio">
                                     <button class="styled-button" id="color-button-{{ color.id }}" data-radio="color-radio-{{ color.id }}" >{{ color.Name }}</button>
@@ -375,17 +381,6 @@
          <!-- Modal -->
          <div class="overlay" id="overlay"></div>
         <div class="popup" id="popup">
-            {% comment %} <form id="popup-form" method="post" action="{% url 'submit_quote' %}">
-                {% csrf_token %}
-                <input type="hidden" id="popup_door_hanging_position" name="door_hanging_position">
-                <input type="hidden" id="popup_available_size" name="available_size">
-                <input type="hidden" id="popup_available_color" name="available_color">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required><br>
-                <label for="phone">Phone:</label>
-                <input type="number" id="phone" name="phone_number" required><br>
-                <button type="submit">Submit</button>
-            </form> {% endcomment %}
             <div class="dlrs-cnt">
                 <div class="form-imgService">
                     <img src="{% static 'assets/images/460x560-01.webp' %}" alt="">
@@ -412,6 +407,7 @@
                     <input type="hidden" id="popup_door_hanging_position" name="door_hanging_position">
                     <input type="hidden" id="popup_available_size" name="available_size">
                     <input type="hidden" id="popup_available_color" name="available_color">
+                    <input type="hidden" id="popup_available_material" name="available_material">
            
         
                     <div class="d-flex justify-content-center mt-3">
@@ -724,16 +720,21 @@
                 const selectedPosition = document.querySelector('input[name="door_hanging_position"]:checked')?.value;
                 const selectedSize = document.querySelector('input[name="available_size"]:checked')?.value;
                 const selectedColor = document.querySelector('input[name="available_color"]:checked')?.value;
+                const selectedMaterial = document.querySelector('input[name="available_material"]:checked')?.value;
+
         
                 // Print the values to the console
                 console.log('Selected Position:', selectedPosition);
                 console.log('Selected Size:', selectedSize);
                 console.log('Selected Color:', selectedColor);
+                console.log('Selected Material:', selectedMaterial);
         
-                if (selectedPosition && selectedSize && selectedColor) {
+                if (selectedPosition && selectedSize && selectedColor && selectedMaterial) {
                     document.getElementById('popup_door_hanging_position').value = selectedPosition;
                     document.getElementById('popup_available_size').value = selectedSize;
                     document.getElementById('popup_available_color').value = selectedColor;
+                    document.getElementById('popup_available_material').value = selectedMaterial;
+
         
                     document.getElementById('overlay').style.display = 'block';
                     document.getElementById('popup').style.display = 'block';

@@ -21,6 +21,12 @@ class Size(models.Model):
     def __str__(self):
         return self.Name
     
+class Material(models.Model):
+    Name = models.CharField(max_length=50)  # Steel
+    
+    def __str__(self):
+        return self.Name
+    
 class Product(models.Model):
     DOOR_TYPES = [
         ('luxury', 'Luxury'),
@@ -42,6 +48,8 @@ class Product(models.Model):
     Hanging_position = models.ManyToManyField('HangingPosition', blank=True)
     Color_shade = models.ManyToManyField('ColorShade', blank=True)
     Sizes = models.ManyToManyField('Size', blank=True)
+    Materials = models.ManyToManyField('Material', blank=True)
+
     
     def save(self, *args, **kwargs):
         if not self.Slug:
@@ -82,6 +90,7 @@ class Quote(models.Model):
     Contact = models.CharField(max_length=15)
     Hanging_position = models.CharField(max_length=50, null=True, blank=True)
     Color_shade = models.CharField(max_length=50, null=True, blank=True)
+    Material = models.CharField(max_length=50, null=True, blank=True)
     Size = models.CharField(max_length=50, null=True, blank=True)
     Is_read = models.BooleanField(default=False)
 

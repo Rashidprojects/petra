@@ -782,6 +782,7 @@ select option {
     color: white;
     width: 300px;
     background-color: rgba(38, 38, 38, 0.6);
+    font-weight: 500;
 }
 
 .ourSignatureDoors {
