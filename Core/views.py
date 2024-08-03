@@ -7,9 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 # Create your views here.
+@login_required
 def dashboard(request):
     return render(request, 'Dashboard/Core/dashboard.html')
-
 
 
 #----------------------------------- Manage Products -----------------------------------#
