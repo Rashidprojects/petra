@@ -36,7 +36,7 @@
 
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 1</label>
-                        <input name="image" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
+                        <input name="image" type="file" class="form-control file" accept=".png, .jpg, .jpeg .webp">
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         {% if product.Image %}
                             <img src="{{ product.Image.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 2</label>
-                        <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
+                        <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg .webp">
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         {% if product.Image2 %}
                             <img src="{{ product.Image2.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 3</label>
-                        <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
+                        <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg .webp">
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         {% if product.Image3 %}
                             <img src="{{ product.Image3.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">

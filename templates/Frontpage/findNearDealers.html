@@ -2,26 +2,8 @@
 {% load static %}
 {% block content %}
 
-<style>
-    .show-message {
-        display: block;
-        background: #84cc16;
-        border: 1px solid;
-        border-color: #84cc16;
-        margin-top: 14px;
-        color: #fff;
-    }
-    .close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 2;
-        padding: 1.25rem 1rem;
-    }
-    .close i {
-        font-size: 22px;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'style/extrastyles.css' %}" />
+
 
     <!-- BEGIN: Notification -->
     {% if messages %}

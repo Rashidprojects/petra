@@ -100,6 +100,10 @@ html {
 .input-field {
     margin-right: 5px;
 }
+.display-size {
+    display: flex;
+    gap: 15px;
+}
 
 @media (max-width: 768px) {
     .group {
@@ -115,3 +119,4 @@ html {
 .size label {
     margin: 5px 0;
 }
+

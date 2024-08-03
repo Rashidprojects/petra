@@ -31,55 +31,13 @@
     <link href="{%static 'frontpage/css/main.min.css' %}" rel="stylesheet" media="all">
 
 	<link rel="stylesheet" href="{%static 'frontpage/style/contactus.css' %}">
+	<link rel="stylesheet" href="{% static 'style/extrastyles.css' %}" />
 
 </head>
 
 <style>
-    body, html {
-        overflow: auto;
-        overflow-x: hidden; /* To prevent horizontal scrolling */
-    }
-	.productDetails {
-		
-	}
-	.productDetails img {
-		
-	}
-	.product-name h1 {
-		text-align: center;
-		padding-top: 40px;
-	}
-	.product-name p {
-		text-align : center;
-	}
-	.left-content {
-		
-	}
-	.content {
-		padding: 10px 0;
-		font-size: 18px; /* Standard size for blog text */
-		font-family: 'Lora', serif; /* Using Lora for the font */
-		line-height: 1.6; /* Improve readability */
-		color: #333; /* A standard dark color for text */
-	}
-	.blog-banner {
-		background-image:url('{% static 'assets/teamMembers/banner.jpg' %}')
-		
-	}
-	.blog-banner img {
-		width: 100%;
-	}
-	.banner {
-		display : flex;
-		justify-content: center;
-		border-radius:10px;
-
-	}
-	.banner img {
-		width: 85%;
-		margin-top:55px;
-		border-radius:10px;
-
+    .blog-banner {
+		background-image:url('{% static 'assets/teamMembers/banner.jpg' %}')	
 	}
 </style>
 

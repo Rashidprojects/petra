@@ -107,6 +107,15 @@ def delete_product(request):
     product.delete()
     return redirect('manage-products')
 
+#----------------------------------- Delete Size -----------------------------------#
+
+@login_required
+def delete_size(request):
+    size_id = request.POST.get('size_id')
+    size = Size.objects.get(id=size_id)
+    size.delete()
+    return redirect('add-product')
+
 #----------------------------------- Edit Product -----------------------------------#
 
 @login_required
