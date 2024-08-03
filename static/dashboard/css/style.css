@@ -1,0 +1,117 @@
+.file {
+    border: solid 1px;
+    padding: 5px;
+    border-color: rgb(var(--color-slate-200) / var(--tw-border-opacity));
+}
+html {
+    background-color : #333333;
+}
+
+.top-nav > ul li .top-menu.top-menu--active .top-menu__icon{
+    color: rgb(var(--color-dark) / var(--tw-text-opacity));
+}
+.top-menu {
+    position: relative;
+}
+
+.top-menu span {
+    position: absolute;
+    top: -7px;
+    right: -4px;
+    background: #ff2f00;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+
+/* Enquiry css */
+.grid-enquiry {
+    display : flex;
+    align-items : center;
+    justify-content : center;
+}
+.grid-enquiry .zoom-in {
+    width : 250px;
+}
+.grid-enquiry .zoom-in .box {
+    display: flex;
+    justify-content: center;
+    position:relative;
+}
+.grid-enquiry .zoom-in .box span {
+    position: absolute;
+    top: -7px;
+    right: -4px;
+    background: #ff2f00;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    color: #fff;
+}
+.grid-enquiry .zoom-in .box .text-base {
+    color : #fff;
+}
+.checkbox {
+    color: #ef6161;
+    border: 2px solid;
+}
+.active-enquiry {
+    background: #616a7a;
+}
+.inactive-enquiry {
+    background: #1e293b;
+}
+.all-read-btn {
+    background: #282425;
+    color: #fff;
+}
+
+/* Products-add page */
+
+.door-types p {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 7px 0;
+}
+.door-types label {
+    font-size: 15px;
+    padding: 2px 0px;
+    margin-right: 7px;
+}
+.size-button {
+    padding-top: 28px;
+}
+.group {
+    display: flex;
+    justify-content: space-around;
+}
+.color-group {
+    margin-left: 71px;
+    margin-top: 32px;
+}
+.size {
+    display: flex;
+    flex-direction: column;
+}
+.input-field {
+    margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+    .group {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .color-group {
+        margin-left: 0;
+        margin-top: 32px;
+    }
+}
+.size label {
+    margin: 5px 0;
+}
