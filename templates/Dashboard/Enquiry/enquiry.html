@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'dashboard/css/custome-style.css' %}" />
 
 <style>
     
@@ -79,14 +80,14 @@
                 {% endif %}
                 <!-- BEGIN: Notification -->
             
-                <h2 class="text-primary text-center font-medium mt-10" style="font-size: 30px;">Manage Quotes</h2>
+                <h2 class="text-dark text-center font-medium mt-10" style="font-size: 30px;">Manage Quotes</h2>
                 <!-- BEGIN: Weekly Top Products -->
                 <div class="col-span-12 mt-6 border-t border-dark pt-5">
                     <div class="intro-y block sm:flex items-center h-10">
                         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
                             <form id="mark-all-read-form" action="{% url 'mark_all_as_read' %}" method="post">
                                 {% csrf_token %}
-                                <button type="button" class="btn btn-primary box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllAsRead()">Mark all as read</button>
+                                <button type="button" class="button btn-primary box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllAsRead()">Mark all as read</button>
                             </form>                
                         </div>
                     </div>
@@ -188,7 +189,7 @@
          <!-- BEGIN: Find Dealer Enquirys-->
         <div id="findDealers-section" class="col-span-12 overflow-auto lg:overflow-visible">
             <div class="col-span-12">
-                <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 20px;">Dealer Enquiries</h2>
+                <h2 class="text-dark text-center font-medium mt-10" style=" font-size: 30px;">Dealer Enquiries</h2>
             </div>
 
             <!-- BEGIN: All Items Set True -->
@@ -196,7 +197,7 @@
                 <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
                     <form id="mark-all-find-dealer-read-form" action="{% url 'mark_all_find_dealer_as_read' %}" method="post">
                         {% csrf_token %}
-                        <button type="button" class="btn all-read-btn box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllFindDealerAsRead()">Mark all as read</button>
+                        <button type="button" class="button all-read-btn box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllFindDealerAsRead()">Mark all as read</button>
                     </form>                
                 </div>
             </div>
@@ -300,7 +301,7 @@
          <!-- BEGIN: New Dealer Enquirys-->
         <div id="newDealers-section" class="col-span-12 overflow-auto lg:overflow-visible">
             <div class="col-span-12">
-                <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 20px;">New Dealer Enquiries</h2>
+                <h2 class="text-dark text-center font-medium mt-10" style=" font-size: 30px;">New Dealer Enquiries</h2>
             </div>
 
             <!-- BEGIN: All Items Set True -->
@@ -308,7 +309,7 @@
                 <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
                     <form id="mark-all-new-dealer-read-form" action="{% url 'mark_all_new_dealer_as_read' %}" method="post">
                         {% csrf_token %}
-                        <button type="button" class="btn all-read-btn box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllNewDealerAsRead()">Mark all as read</button>
+                        <button type="button" class="button all-read-btn box flex items-center text-slate-600 dark:text-slate-300" onclick="markAllNewDealerAsRead()">Mark all as read</button>
                     </form>                
                 </div>
             </div>

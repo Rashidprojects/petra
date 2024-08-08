@@ -7,6 +7,8 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'dashboard/css/custome-style.css' %}" />
+
 
 <div class="content">
 
@@ -24,7 +26,7 @@
 
     <div class="intro-y box py-10 sm:py-10 mt-5">
 
-        <h2 class="text-primary text-center font-medium" style=" font-size: 30px;">Add Testimonials</h2>
+        <h2 class="text-dark text-center font-medium" style=" font-size: 30px;">Add Testimonials</h2>
         
         <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
             <form action="" method="post" enctype="multipart/form-data">
@@ -41,7 +43,7 @@
                     </div>
                    
                     <div class="intro-y col-span-6 flex items-center justify-center sm:justify-end mt-5">
-                        <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                        <button class="button btn-primary w-24 ml-2" type="submit">Submit</button>
                     </div>
                 </div>
             </form>

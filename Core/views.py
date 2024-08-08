@@ -1,4 +1,7 @@
 import re
+import datetime
+from django.utils import timezone
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from Core.models import Product, HangingPosition,ColorShade,Size, Material ,Quote,FindDealers,NewDealers,Complaints,Testimonials,Gallery,Blogs,Contact
@@ -9,12 +12,22 @@ from django.http import JsonResponse
 # Create your views here.
 @login_required
 def dashboard(request):
+    last_activity = request.session.get('last_activity')
+    current_time = timezone.now()
+    
+    if last_activity:
+        last_activity_time = datetime.datetime.fromisoformat(last_activity)
+        if (current_time - last_activity_time).total_seconds() > 3600:
+            logout(request)
+            messages.info(request, "You have been logged out due to inactivity. Please log in again.")
+            return redirect('login')  # Redirect to your login page
+
+    request.session['last_activity'] = current_time.isoformat()
     return render(request, 'Dashboard/Core/dashboard.html')
 
 
 #----------------------------------- Manage Products -----------------------------------#
 
-@login_required
 def manage_products(request):
     products = Product.objects.all().order_by('-Date')
 
@@ -25,21 +38,22 @@ def manage_products(request):
 
 #----------------------------------- Add Product -----------------------------------#
 
-@login_required
 def add_product(request):
     if request.method == 'POST':
         try:
             name = request.POST.get('name')
             images = [request.FILES.get(f'image{i}') for i in range(1, 6)]
             desc = request.POST.get('description')
-            door_type = request.POST.get('door_type')
             hanging_position = request.POST.getlist('hanging_position')
             color_shade = request.POST.getlist('color_shade')
             material = request.POST.getlist('material')
             custom_sizes = request.POST.getlist('sizes')
+            door_type_1 = request.POST.get('door_type_1')
+            door_type_2 = request.POST.get('door_type_2')
+            door_type_3 = request.POST.get('door_type_3')
 
 
-            if name and images[0] and desc and door_type :
+            if name and images[0] and desc :
                 product = Product(
                     Name=name,
                     Image=images[0],
@@ -48,7 +62,9 @@ def add_product(request):
                     Image4=images[3],
                     Image5=images[4],
                     Description=desc,
-                    Door_type=door_type
+                    Door_type_1=door_type_1,
+                    Door_type_2=door_type_2,
+                    Door_type_3=door_type_3,
                 )
                 product.save()
 
@@ -121,6 +137,13 @@ def delete_size(request):
 @login_required
 def edit_product(request, product_id):
     product = Product.objects.get(id=product_id)
+    
+    # Collect all data names in a set
+    data_names_set = set(product.Hanging_position.values_list('Name', flat=True))
+    data_color_set = set(product.Color_shade.values_list('Name', flat=True))
+    data_material_set = set(product.Materials.values_list('Name', flat=True))
+    data_size_set = set(product.Sizes.values_list('Name', flat=True))
+
 
     if request.method == 'POST':
         try:
@@ -132,9 +155,36 @@ def edit_product(request, product_id):
                 
             if 'image3' in request.FILES:
                 product.Image3 = request.FILES.get('image3')
+                
+            if 'image4' in request.FILES:
+                product.Image4 = request.FILES.get('image4')
+                
+            if 'image5' in request.FILES:
+                product.Image5 = request.FILES.get('image5')
 
             product.Name = request.POST.get('name')
             product.Description = request.POST.get('description')
+            product.Door_type_1 = request.POST.get('door_type_1')
+            product.Door_type_2 = request.POST.get('door_type_2')
+            product.Door_type_3 = request.POST.get('door_type_3')
+            
+            # Handle many-to-many relationships
+            selected_hanging_positions = request.POST.getlist('hanging_position')
+            hanging_positions = HangingPosition.objects.filter(id__in=selected_hanging_positions)
+            product.Hanging_position.set(hanging_positions)      
+            
+            selected_color_shades = request.POST.getlist('color_shade')      
+            color_shades = ColorShade.objects.filter(id__in=selected_color_shades)
+            product.Color_shade.set(color_shades)
+            
+            selected_material_shades = request.POST.getlist('material')
+            materials = Material.objects.filter(id__in=selected_material_shades)
+            product.Materials.set(materials)
+            
+            selected_size_shades = request.POST.getlist('sizes')
+            sizes = Size.objects.filter(id__in=selected_size_shades)
+            product.Sizes.set(sizes)
+            
             product.save()
                 
             messages.success(request, 'Product details edited successfully!')
@@ -143,11 +193,27 @@ def edit_product(request, product_id):
             messages.warning(request, exception)
             return redirect('edit-product', product_id=product.id)
         
+    door_types = Product.DOOR_TYPES
+    hanging_positions = HangingPosition.objects.all().order_by('id')
+    color_shades = ColorShade.objects.all().order_by('id')
+    materials = Material.objects.all().order_by('id')
+    sizes = Size.objects.all().order_by('id')
+   
     context = {
         'product': product,
+        'door_types': door_types,
+        'hanging_positions': hanging_positions,
+        'color_shades' : color_shades,
+        'materials' : materials,
+        'sizes' : sizes,
+        'data_names_set': data_names_set,
+        'data_color_set': data_color_set,
+        'data_material_set': data_material_set,
+        'data_size_set': data_size_set,
+
     }
     return render(request, 'Dashboard/Products/product-edit.html', context)
-
+    
 
 #----------------------------------- Manage Enquirys -----------------------------------#
 

@@ -220,10 +220,38 @@
                         <div class="mySwiperprosection">
                             <div class="swiper-wrapper">
                                 {% for door in products %}
-                                <a class="swiper-slide" href="{{ door.get_absolute_url }}">
-                                    <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{door.Name}}</h2>
-                                    <img src="{{door.Image.url}}" alt="">
+
+                                {% if door.Image %}
+                                <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="width:400px">
+                                    <h2 class="cardDcnt animate__animated animate__fadeInUp" style="width:400px" >{{door.Name}}</h2>
+                                    <img class="signature-img" src="{{door.Image.url}}" alt="" style="
+                                    width: 400px;
+                                    height: 400px;
+                                    border-radius: 7px;">
                                 </a>
+                                {% endif %}
+
+                                {% if door.Image2 and door.Door_type_2 != "none" %}
+                                <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="width:400px">
+                                    <h2 class="cardDcnt animate__animated animate__fadeInUp" style="width:400px" >{{door.Name}}</h2>
+                                    <img class="signature-img" src="{{door.Image2.url}}" alt="" style="
+                                    width: 400px;
+                                    height: 400px;
+                                    border-radius: 7px;">
+                                </a>
+                                {% endif %}
+
+                                {% if door.Image3 and door.Door_type_2 != "none" %}
+                                <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="width:400px">
+                                    <h2 class="cardDcnt animate__animated animate__fadeInUp" style="width:400px" >{{door.Name}}</h2>
+                                    <img class="signature-img" src="{{door.Image3.url}}" alt="" style="
+                                    width: 400px;
+                                    height: 400px;
+                                    border-radius: 7px;">
+                                </a>
+                                {% endif %}
+
+
                                 {% endfor %}
                             </div>
                             {% comment %} <div class="swiper-pagination"></div>

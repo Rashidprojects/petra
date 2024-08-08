@@ -10,7 +10,6 @@ urlpatterns = [
     path('product/edit/<int:product_id>/', views.edit_product, name='edit-product'),
     path('size/delete/',views.delete_size,name='delete-size'),
 
-    
     path('enquirys/list/',views.manage_enquirys,name='manage-enquirys'),
     
     path('quotes/list/',views.manage_quotes,name='manage-quotes'),

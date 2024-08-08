@@ -1,0 +1,49 @@
+.button {
+    background: #333333;
+    color: #fff;
+    padding: 12px;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+.cancel-btn {
+    background-color: #e1dfdf;
+    color: #333333;
+    padding: 12px;
+    border-radius: 7px;
+    font-size: 16px;
+}
+.cancel-btn:hover{
+    border: 1px solid;
+    border-color: #333333;
+}
+.cancel-btn:focus,
+.cancel-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 3px 3px rgb(134, 133, 133);
+}
+
+.button:focus,
+.button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 3px 3px rgb(134, 133, 133);
+}
+
+.form-control:focus,
+.form-control:focus-visible {
+    outline: none;
+    box-shadow: 0 0 3px 3px rgb(134, 133, 133);
+    border: 1px solid;
+    border-color: rgb(134, 133, 133);
+}
+
+h2 {
+    color: #222020;
+}
+.image-type {
+    display: flex;
+    gap: 3px;
+}
+.image-type select {
+    width: 200px;
+}

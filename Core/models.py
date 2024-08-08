@@ -34,21 +34,23 @@ class Product(models.Model):
         ('double', 'Double'),
     ]
     
-    
     Date = models.DateField(auto_now_add=True )
     Name = models.CharField(max_length=100)
     Slug = models.SlugField(unique=True, blank=True, null=True)
-    Image = models.ImageField(null=True, upload_to='Premiums')
+    Image = models.ImageField(null=True, upload_to='Premiums', blank=True)
     Image2 = models.ImageField(null=True, upload_to='Premiums', blank=True)
     Image3 = models.ImageField(null=True, upload_to='Premiums', blank=True)
     Image4 = models.ImageField(null=True, upload_to='Premiums', blank=True)
     Image5 = models.ImageField(null=True, upload_to='Premiums', blank=True)
     Description = models.TextField(null=True, blank=True) 
-    Door_type = models.CharField(max_length=10, choices=DOOR_TYPES)
     Hanging_position = models.ManyToManyField('HangingPosition', blank=True)
     Color_shade = models.ManyToManyField('ColorShade', blank=True)
     Sizes = models.ManyToManyField('Size', blank=True)
     Materials = models.ManyToManyField('Material', blank=True)
+    Door_type_1 = models.CharField(max_length=30, blank=True)
+    Door_type_2 = models.CharField(max_length=30, blank=True)
+    Door_type_3 = models.CharField(max_length=30, blank=True, null=True)
+
 
     
     def save(self, *args, **kwargs):

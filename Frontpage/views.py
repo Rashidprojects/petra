@@ -5,9 +5,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from Core.models import Quote  # Assuming you have a QuoteRequest model
 from django.contrib import messages
+from django.db.models import Q
+
 
 def index(request):
-    product = Product.objects.all()
+    product = Product.objects.all().order_by('id')
     context = {
         'products' : product
     }
@@ -17,17 +19,19 @@ def about(request):
     return render(request, 'Frontpage/about.html')
 
 def products(request):
-    luxury = Product.objects.filter(Door_type='luxury').order_by('id')
-    single = Product.objects.filter(Door_type='single').order_by('id')
-    double = Product.objects.filter(Door_type='double').order_by('id')
+    all_products = Product.objects.all()
+    luxury_products = Product.objects.filter(Q(Door_type_1='luxury') )
+    single_products = Product.objects.filter(Q(Door_type_2='single') | Q(Door_type_1='single') | Q(Door_type_3='single'))
+    double_products = Product.objects.filter(Q(Door_type_3='double') | Q(Door_type_1='double') | Q(Door_type_2='double'))
 
-    
-    return render(request, 'Frontpage/products.html', {
-        'luxury' : luxury,
-        'single' : single,
-        'double' : double,
+    context = {
+        'all_products': all_products,
+        'luxury_products': luxury_products,
+        'single_products': single_products,
+        'double_products': double_products,
+    }
 
-    })
+    return render(request, 'Frontpage/products.html', context)
     
 def product_detail(request, slug):
     product = get_object_or_404(Product, Slug=slug)
@@ -103,7 +107,7 @@ def testimonials(request):
     return render(request, 'Frontpage/testimonials.html', context)
 
 def gallery(request):
-    images = Gallery.objects.all()
+    images = Gallery.objects.all().order_by('id')
     
     context = {
         'images' : images
@@ -111,7 +115,7 @@ def gallery(request):
     return render(request, 'Frontpage/gallery.html', context)
 
 def blogs(request):
-    blogs = Blogs.objects.all()
+    blogs = Blogs.objects.all().order_by('id')
     
     context = {
         'blogs' : blogs

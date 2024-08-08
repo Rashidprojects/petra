@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-t#7!fw$3ct&a192r&dgalpj@^e*#yhzqacm-c=pg(+l$c!24as
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Core.middleware.UpdateLastActivityMiddleware',
+
 ]
 
 ROOT_URLCONF = 'petra.urls'
@@ -87,6 +89,7 @@ DATABASES = {
     }
 }
 
+SESSION_COOKIE_AGE = 3600  # 1 hour
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

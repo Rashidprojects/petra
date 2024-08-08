@@ -23,17 +23,17 @@
     </head>
     <!-- END: Head -->
     <body class="py-5">
-        <!-- BEGIN: Mobile Menu -->
-        <div class="mobile-menu md:hidden">
+        <!-- BEGIN: Mobile Menu mobile-menu--active -->
+        <div class="mobile-menu md:hidden " style="background: #333333;">
             <div class="mobile-menu-bar">
                 <a href="" class="flex mr-auto">
                     <img alt="Midone - HTML Admin Template" src="{% static 'assets/images/Petra-logo.png' %}" style="width: 60px;">
                 </a>
-                <a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+                <a href="javascript:;" class="mobile-menu-toggler" id="open"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
             </div>
-            <div class="scrollable">
-                <a href="javascript:;" class="mobile-menu-toggler"> <i data-lucide="x-circle" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
-                <ul class="scrollable__content py-2">
+            <div class="scrollable" style="background-color: #747474;">
+                <a href="javascript:;" class="mobile-menu-toggler" id="close">  <i data-lucide="x-circle" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+                <ul class="scrollable__content py-2" >
                     <li>
                         <a href="{% url 'dashboard' %}" class="menu menu--active">
                             <div class="menu__icon"> <i data-lucide="home"></i> </div>
@@ -198,28 +198,53 @@
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const navLinks = document.querySelectorAll('.top-menu');
-    
+                
                 // Retrieve the stored active link from localStorage
                 const activeLinkHref = localStorage.getItem('activeLinkHref');
-    
-                // Apply the active class to the stored link
+                
                 if (activeLinkHref) {
-                    navLinks.forEach(link => {
-                        const href = link.getAttribute('href');
-                        if (href === activeLinkHref) {
-                            link.classList.add('top-menu--active');
-                        }
-                    });
+                    const currentHref = window.location.href;
+                    const targetUrl = new URL(activeLinkHref, currentHref);
+            
+                    // Redirect if current URL is different from the target URL
+                    if (currentHref !== targetUrl.href) {
+                        window.location.href = targetUrl.href;
+                    }
+                } else {
+                    // Set default active link
+                    localStorage.setItem('activeLinkHref', "{% url 'dashboard' %}");
                 }
-    
+        
+                // Apply the active class to the stored link
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === activeLinkHref) {
+                        link.classList.add('top-menu--active');
+                    }
+                });
+        
                 // Set up the click event listeners
                 navLinks.forEach(link => {
-                    link.addEventListener('click', (event) => {
+                    link.addEventListener('click', () => {
                         // Store the href of the clicked link in localStorage
                         localStorage.setItem('activeLinkHref', link.getAttribute('href'));
                     });
                 });
             });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const open = document.getElementById('open')
+                const close = document.getElementById('close')
+                const displayDiv = document.querySelector('.mobile-menu')
+
+                open.addEventListener('click', () => {
+                    displayDiv.classList.add('mobile-menu--active');
+                })
+
+                close.addEventListener('click', () => {
+                    displayDiv.classList.remove('mobile-menu--active');
+                })
+            })
         </script>
         
         

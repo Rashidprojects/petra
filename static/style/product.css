@@ -166,7 +166,9 @@ body{
     color: #262626 !important;
 }
 
-
+.door-card a {
+    width: 450px;
+}
 
 
 
@@ -654,6 +656,7 @@ select option {
     position: relative;
     height: 100%;
     padding: 70px 50px 20px 50px;
+    background-color: #fff;
 }
 
 
@@ -673,7 +676,7 @@ select option {
     position: absolute;
     bottom: 0px;
     color: white;
-    width: 300px;
+    width: 500px;
     background-color: rgba(38, 38, 38, 0.6);
 }
 
@@ -697,12 +700,6 @@ select option {
 }
 
 
-
-.swiper-slide img {
-    display: block;
-    width: 300px !important;
-    height: 500px !important;
-}
 
 .swiper-button-prev,
 .swiper-button-next {

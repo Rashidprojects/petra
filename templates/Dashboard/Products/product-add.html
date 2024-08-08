@@ -7,6 +7,8 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'dashboard/css/custome-style.css' %}" />
+
 
 <div class="content">
 
@@ -24,7 +26,7 @@
 
     <div class="intro-y box py-10 sm:py-10 mt-5">
 
-        <h2 class="text-primary text-center font-medium" style=" font-size: 30px;">Add Products</h2>
+        <h2 class="text-dark text-center font-medium" style=" font-size: 30px;">Add Products</h2>
         
         <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
             <form action="" method="post" enctype="multipart/form-data">
@@ -37,18 +39,41 @@
 
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 1</label>
-                        <input name="image1" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
+                        <div class="image-type">
+                            <input name="image1" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
+                            <select name="door_type_1" id="door_type_1" class="form-control" onchange="updateImageOptions()">
+                                {% for value, label in door_types %}
+                                    <option value="{{ value }}">{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                        
                     </div>
+                    
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 2</label>
-                        <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                        <div class="image-type">
+                            <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                            <select name="door_type_2" id="door_type_2" class="form-control" onchange="updateImage3Options()">
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+
+                        
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 3</label>
-                        <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                        <div class="image-type">
+                            <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
+                            <select name="door_type_3" id="door_type_3" class="form-control">
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
+                        
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Image 4</label>
@@ -67,15 +92,6 @@
                     <div class="intro-y col-span-12 sm:col-span-6 door-types">
 
                         <div class="group">
-                            <div>
-                                <p>Select Door Type</p>
-                                {% for value, label in door_types %}
-                                <label>
-                                    <input class="input-field" type="radio" name="door_type" value="{{ value }}">{{ label }}
-                                </label>
-                            {% endfor %}
-                               
-                            </div><br>
     
                             <div>
                                 <p>Select Hanging Position</p>
@@ -83,12 +99,9 @@
                                     <label>
                                         <input class="input-field" type="checkbox" name="hanging_position" value="{{ position.id }}">{{ position.Name }}
                                     </label>
-                                {% endfor %}
-                                
-                            </div>
-                        </div>
+                                {% endfor %}   
+                            </div> <br>
 
-                        <div class="color-group">
                             <div>
                                 <p>Select Colour Shades</p>
                                 {% for color in color_shades %}
@@ -243,6 +256,7 @@
     </div>
 </div>
 
+<script src="{% static 'dashboard/js/product.js' %}"></script>
 <script>
     function delete_size(size_id){
         $('#size_id').val(size_id)

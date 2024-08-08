@@ -27,3 +27,9 @@
 .swiper-slide {
     overflow: hidden; 
 } 
+.producSlidermain {
+    background: #fff;
+}
+.producSlidermain .door-card a {
+    width: 450px;
+}

@@ -7,6 +7,8 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'dashboard/css/custome-style.css' %}" />
+
 <div class="content">
 
     <!-- BEGIN: Notification -->
@@ -21,14 +23,14 @@
     {% endif %}
     <!-- BEGIN: Notification -->
 
-    <h2 class="text-primary text-center font-medium mt-10" style=" font-size: 30px;">Manage Blogs</h2>
+    <h2 class="text-dark text-center font-medium mt-10" style=" font-size: 30px;">Manage Blogs</h2>
     <!-- BEGIN: Weekly Top Products -->
     <div class="col-span-12 mt-6 border-t border-dark pt-5">
         <div class="intro-y block sm:flex items-center h-10">
             <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
                 <!-- <button class="btn btn-primary box flex items-center text-slate-600 dark:text-slate-300"> <i data-lucide="file-text" class="hidden sm:block w-4 h-4 mr-2"></i> Export to Excel </button> -->
                 <!-- <button class="ml-3 btn btn-primary box flex items-center text-slate-600 dark:text-slate-300"> <i data-lucide="file-text" class="hidden sm:block w-4 h-4 mr-2"></i> Export to PDF </button> -->
-                <a href="{% url 'add-blog' %}"><button class="btn btn-primary ml-3">Add New Blog</button></a>
+                <a href="{% url 'add-blog' %}" id="add-blog-link"><button class="button btn-primary ml-3">Add New Blog</button></a>
             </div>
         </div>
         <div class="intro-y overflow-auto mt-8 sm:mt-0">
@@ -61,7 +63,7 @@
                                         <a onclick="delete_blog('{{blog.id}}')" class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal" data-tw-target="#delete-modal"> 
                                             <i data-lucide="trash" class="w-4 h-4 mr-1"></i>
                                         </a>
-                                        <a class="flex items-center text-primary" href="{% url 'edit-blog' blog.id %}"> 
+                                        <a class="flex items-center text-primary" href="{% url 'edit-blog' blog.id %}" id="edit-product-link-{{ door.id }}"> 
                                             <i data-lucide="edit" class="w-4 h-4"></i>
                                         </a>
                                     </div>
@@ -77,7 +79,7 @@
                         <tr class="intro-x width"> 
                             <td class=" width" style="width:100%;">
                                 <i data-lucide="hard-drive" style="width:60px; height:60px; margin-left: auto; margin-right: auto; display: block; padding: 10px; border-radius: 50%;
-                                    background: #e8e4e4;" class="w-4 h-4 mr-2 text-primary">  
+                                    background: #e8e4e4; color:#222020;" class="w-4 h-4 mr-2 text-primary">  
                                 </i>
                             <div style="text-align: center;">No data available!</div>
                             </td>   
@@ -120,6 +122,30 @@
     function delete_blog(blog_id){
         $('#blog_id').val(blog_id)
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const addBlogLink = document.getElementById('add-blog-link');
+
+    
+        if (addBlogLink) {
+            addBlogLink.addEventListener('click', () => {
+                // Store the URL in localStorage
+                const url = addBlogLink.href;
+                localStorage.setItem('activeLinkHref', url);
+            });
+        }
+
+    });
+
+      // Handle edit product links
+      document.querySelectorAll('a[id^="edit-product-link-"]').forEach(link => {
+        link.addEventListener('click', () => {
+            // Store the URL in localStorage
+            const url = link.href;
+            localStorage.setItem('activeLinkHref', url);
+        });
+    });
+    
 </script>
 
 {% endblock content %}
