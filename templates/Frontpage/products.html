@@ -41,10 +41,8 @@
 
 
     <div class="door-selection pb-5">
-        <button class="button active" id="all">All Products</button>
-        <button class="button" id="luxury">Luxury</button>
-        <button class="button" id="single">Single</button>
-        <button class="button" id="double">Double</button>
+        <button class="button active" id="luxury">Luxury Doors</button>
+        <button class="button" id="signature">Signature Doors</button>
     </div>
     
 
@@ -131,7 +129,7 @@
                     <img src="{{ door.Image2.url }}" alt="">
                     {% endif %} 
 
-                    {% if door.Door_type_3 == "double" and Image3 %}
+                    {% if door.Door_type_3 == "double"  %}
                     <img src="{{ door.Image3.url }}" alt="">
                     {% endif %}                
                 </a>

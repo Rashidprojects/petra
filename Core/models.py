@@ -47,8 +47,8 @@ class Product(models.Model):
     Color_shade = models.ManyToManyField('ColorShade', blank=True)
     Sizes = models.ManyToManyField('Size', blank=True)
     Materials = models.ManyToManyField('Material', blank=True)
-    Door_type_1 = models.CharField(max_length=30, blank=True)
-    Door_type_2 = models.CharField(max_length=30, blank=True)
+    Door_type_1 = models.CharField(max_length=30, blank=True, null=True)
+    Door_type_2 = models.CharField(max_length=30, blank=True, null=True)
     Door_type_3 = models.CharField(max_length=30, blank=True, null=True)
 
 

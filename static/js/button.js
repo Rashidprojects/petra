@@ -12,43 +12,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const buttonAll = document.getElementById('all');
     const buttonLuxury = document.getElementById('luxury');
-    const buttonSingle = document.getElementById('single');
-    const buttonDouble = document.getElementById('double');
+    const buttonSignature = document.getElementById('signature');
 
-    const allContainer = document.getElementById('all-container');
     const luxuryContainer = document.getElementById('luxury-container');
-    const singleContainer = document.getElementById('single-container');
-    const doubleContainer = document.getElementById('double-container');
-
-    buttonAll.addEventListener('click', () => {
-        allContainer.classList.add('active');
-        luxuryContainer.classList.remove('active');
-        singleContainer.classList.remove('active');
-        doubleContainer.classList.remove('active');
-    });
+    const signatureContainer = document.getElementById('signature-container');
 
     buttonLuxury.addEventListener('click', () => {
-        allContainer.classList.remove('active');
         luxuryContainer.classList.add('active');
-        singleContainer.classList.remove('active');
-        doubleContainer.classList.remove('active');
+        signatureContainer.classList.remove('active');
     });
 
-    buttonSingle.addEventListener('click', () => {
-        allContainer.classList.remove('active');
+    buttonSignature.addEventListener('click', () => {
         luxuryContainer.classList.remove('active');
-        singleContainer.classList.add('active');
-        doubleContainer.classList.remove('active');
+        signatureContainer.classList.add('active');
     });
 
-    buttonDouble.addEventListener('click', () => {
-        allContainer.classList.remove('active');
-        luxuryContainer.classList.remove('active');
-        singleContainer.classList.remove('active');
-        doubleContainer.classList.add('active');
-    });
 });
 
 
