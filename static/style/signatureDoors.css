@@ -9,8 +9,9 @@
     display : block;
     text-align : center;
 }   
-.signature-doors .mySwiperprosection {
-    padding-left : 90px
+.signature-doors .mySwiper {
+    width: 100%;
+    height: 100%;
 }
 .producdescription p {
     padding-right: 27px;
@@ -18,6 +19,7 @@
 .swiper-slide {
     overflow: hidden; 
 } 
-.signature-img {
 
+.swiper-slide h2{
+    display: none;
 }

@@ -47,72 +47,57 @@ def add_product(request):
             hanging_position = request.POST.getlist('hanging_position')
             color_shade = request.POST.getlist('color_shade')
             material = request.POST.getlist('material')
+            fixed_sizes = request.POST.getlist('fixed_sizes')
             custom_sizes = request.POST.getlist('sizes')
             door_type_1 = request.POST.get('door_type_1')
-            door_type_2 = request.POST.get('door_type_2')
-            door_type_3 = request.POST.get('door_type_3')
 
+            # Create and save the product
+            product = Product(
+                Name=name,
+                Image=images[0] if images[0] else None,
+                Image2=images[1] if images[1] else None,
+                Image3=images[2] if images[2] else None,
+                Image4=images[3] if images[3] else None,
+                Image5=images[4] if images[4] else None,
+                Description=desc,
+                Door_type_1=door_type_1,
+                FixedSize = fixed_sizes,
+            )
+            product.save()
 
-            if name and images[0] and desc :
-                product = Product(
-                    Name=name,
-                    Image=images[0],
-                    Image2=images[1],
-                    Image3=images[2],
-                    Image4=images[3],
-                    Image5=images[4],
-                    Description=desc,
-                    Door_type_1=door_type_1,
-                    Door_type_2=door_type_2,
-                    Door_type_3=door_type_3,
-                )
-                product.save()
+            # Add ManyToMany relationships
+            if hanging_position:
+                positions = HangingPosition.objects.filter(id__in=hanging_position)
+                product.Hanging_position.set(positions)
 
-                hanging_objects = HangingPosition.objects.filter(id__in=hanging_position)
-                product.Hanging_position.set(hanging_objects)
-                
-                color_objects = ColorShade.objects.filter(id__in=color_shade)
-                product.Color_shade.set(color_objects)
-                
-                material_objects = Material.objects.filter(id__in=material)
-                product.Materials.set(material_objects)
-                
-                size_ids = []
-                for size in custom_sizes:
-                    if size.isdigit():
-                        size_ids.append(int(size))
-                    else:
-                        new_size_obj, created = Size.objects.get_or_create(Name=size)
-                        size_ids.append(new_size_obj.id)
-                
-                if size_ids:
-                    size_objects = Size.objects.filter(id__in=size_ids)
-                    product.Sizes.set(size_objects)
-                    
-                product.save()
+            if color_shade:
+                colors = ColorShade.objects.filter(id__in=color_shade)
+                product.Color_shade.set(colors)
 
-                messages.success(request, 'Product added successfully.')
-                return redirect('manage-products')
-            else:
-                messages.warning(request, 'Please fill in all required fields.')
+            if material:
+                materials = Material.objects.filter(id__in=material)
+                product.Materials.set(materials)
+
+            if custom_sizes:
+                sizes = Size.objects.filter(id__in=custom_sizes)
+                product.Sizes.set(sizes)
+
+            return redirect('manage-products')  # Redirect to the manage products page after success
+
         except Exception as e:
-            messages.warning(request, f"An error occurred: {str(e)}")
-            return redirect('add-product')
+            # Handle any errors
+            messages.error(request, f"Error adding product: {str(e)}")
+            return redirect('add-product')  # Redirect back to the form on error
 
-    door_types = Product.DOOR_TYPES
-    hanging_positions = HangingPosition.objects.all().order_by('id')
-    color_shades = ColorShade.objects.all().order_by('id')
-    materials = Material.objects.all().order_by('id')
-    sizes = Size.objects.all().order_by('id')
-
-
-    return render(request, 'Dashboard/Products/product-add.html', {
-        'door_types': door_types,
-        'hanging_positions': hanging_positions,
-        'color_shades' : color_shades,
-        'materials' : materials,
-        'sizes' : sizes,
-    })
+    # If GET request, render the form
+    context = {
+        'door_types': Product.DOOR_TYPES,
+        'hanging_positions': HangingPosition.objects.all(),
+        'color_shades': ColorShade.objects.all(),
+        'materials': Material.objects.all(),
+        'sizes': Size.objects.all(),
+    }
+    return render(request, 'Dashboard/Products/product-add.html', context)
 
 #----------------------------------- Delete Product -----------------------------------#
 

@@ -27,10 +27,19 @@
     <div class="intro-y box py-10 sm:py-10 mt-5">
 
         <h2 class="text-dark text-center font-medium" style=" font-size: 30px;">Add Products</h2>
-        
+
         <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+
+                <div class="flex align-center justify-center gap-2">
+                    <input type="radio" id="luxury" name="door_type_1" value="Luxury">
+                    <label for="luxury">Luxury</label><br>
+            
+                    <input type="radio" id="signature" name="door_type_1" value="Signature">
+                    <label for="signature">Signature</label><br>
+                </div>
+
                 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Product Name</label>
@@ -41,11 +50,6 @@
                         <label for="input-wizard-2" class="form-label">Image 1</label>
                         <div class="image-type">
                             <input name="image1" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
-                            <select name="door_type_1" id="door_type_1" class="form-control" onchange="updateImageOptions()">
-                                {% for value, label in door_types %}
-                                    <option value="{{ value }}">{{ label }}</option>
-                                {% endfor %}
-                            </select>
                         </div>
                         
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
@@ -56,9 +60,6 @@
                         <label for="input-wizard-2" class="form-label">Image 2</label>
                         <div class="image-type">
                             <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
-                            <select name="door_type_2" id="door_type_2" class="form-control" onchange="updateImage3Options()">
-                                <!-- Options will be populated dynamically -->
-                            </select>
                         </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
 
@@ -68,9 +69,6 @@
                         <label for="input-wizard-2" class="form-label">Image 3</label>
                         <div class="image-type">
                             <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg" >
-                            <select name="door_type_3" id="door_type_3" class="form-control">
-                                <!-- Options will be populated dynamically -->
-                            </select>
                         </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         
@@ -181,31 +179,31 @@
                         <div class="size">
                             <p>Select Special Sizes</p>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x880x70 mm | SL">
+                                <input type="checkbox" name="fixed_sizes" value="2350x880x70 mm | SL">
                                 2350x880x70 mm | SL
                             </label>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x880x70 mm | ML">
+                                <input type="checkbox" name="fixed_sizes" value="2350x880x70 mm | ML">
                                 2350x880x70 mm | ML
                             </label>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x980x70 mm">
+                                <input type="checkbox" name="fixed_sizes" value="2350x980x70 mm">
                                 2350x980x70 mm 
                             </label>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x1080x70 mm ">
+                                <input type="checkbox" name="fixed_sizes" value="2350x1080x70 mm ">
                                 2350x1080x70 mm 
                             </label>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x1200x70 mm">
+                                <input type="checkbox" name="fixed_sizes" value="2350x1200x70 mm">
                                 2350x1200x70 mm
                             </label>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x1500x70 mm">
+                                <input type="checkbox" name="fixed_sizes" value="2350x1500x70 mm">
                                 2350x1500x70 mm
                             </label>
                             <label>
-                                <input type="checkbox" name="sizes" value="2350x1800x70 mm">
+                                <input type="checkbox" name="fixed_sizes" value="2350x1800x70 mm">
                                 2350x1800x70 mm
                             </label>
                         </div>
@@ -218,12 +216,12 @@
 
                     <!-- Add Size Button -->
                     <div class="intro-y col-span-6 sm:col-span-12 size-button">
-                        <button type="button" class="btn btn-primary" onclick="addSize()">Add Size</button>
+                        <button type="button" class="button btn-primary" onclick="addSize()">Add Size</button>
                     </div>
 
                    
                     <div class="intro-y col-span-6 flex items-center justify-center sm:justify-end mt-5">
-                        <button class="btn btn-primary w-24 ml-2" type="submit">Submit</button>
+                        <button class="button btn-primary w-24 ml-2" type="submit">Submit</button>
                     </div>
                 </div>
             </form>
@@ -256,7 +254,6 @@
     </div>
 </div>
 
-<script src="{% static 'dashboard/js/product.js' %}"></script>
 <script>
     function delete_size(size_id){
         $('#size_id').val(size_id)
@@ -290,6 +287,8 @@
         newSizeInput.value = '';
     }
 </script>
+
+
 
 
 {% endblock content %}

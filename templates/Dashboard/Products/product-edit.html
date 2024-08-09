@@ -28,7 +28,17 @@
         <div class="px-3 sm:px-10 mt-10 pt-10 border-t border-slate-200/60 dark:border-darkmode-400">
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                <div class="flex align-center justify-center gap-2">
+                    <input type="radio" id="luxury" name="door_type_1" value="Luxury" 
+                    {% if product.Door_type_1 == "Luxury" %}checked{% endif %}>
+                    <label for="luxury">Luxury</label><br>
+                
+                    <input type="radio" id="signature" name="door_type_1" value="Signature" 
+                    {% if product.Door_type_1 == "Signature" %}checked{% endif %}>
+                    <label for="signature">Signature</label><br>
+                </div>
                 <div class="grid grid-cols-12 gap-4 gap-y-5 mt-5"> 
+                    
                     <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Door Name</label>
                         <input type="text" name="name" class="form-control" value="{{ product.Name }}" required>
@@ -38,12 +48,7 @@
                         <label for="input-wizard-2" class="form-label">Image 1</label>
                         <div class="image-type">
                             <input name="image1" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
-                            <select name="door_type_1" id="door_type_1" class="form-control">
-                                <option value="luxury">Luxury</option>
-                                <option value="single">Single</option>
-                                <option value="double">Double</option>
-                            </select>
-                            <input type="hidden" id="door_type_1_default" value="{{ product.Door_type_1 }}">
+                           
                         </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         {% if product.Image %}
@@ -55,10 +60,6 @@
                         <label for="input-wizard-2" class="form-label">Image 2</label>
                         <div class="image-type">
                             <input name="image2" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
-                            <select name="door_type_2" id="door_type_2" class="form-control">
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <input type="hidden" id="door_type_2_default" value="{{ product.Door_type_2 }}">
                         </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         {% if product.Image2 %}
@@ -70,10 +71,6 @@
                         <label for="input-wizard-2" class="form-label">Image 3</label>
                         <div class="image-type">
                             <input name="image3" type="file" class="form-control file" accept=".png, .jpg, .jpeg">
-                            <select name="door_type_3" id="door_type_3" class="form-control">
-                                <!-- Options will be populated dynamically -->
-                            </select>
-                            <input type="hidden" id="door_type_3_default" value="{{ product.Door_type_3 }}">
                         </div>
                         <small class="form-text text-muted">Please select images of size 500x300 pixels.</small>
                         {% if product.Image3 %}

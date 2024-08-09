@@ -1,3 +1,4 @@
+import ast #The ast module (Abstract Syntax Trees)
 from django.shortcuts import render, get_object_or_404, redirect
 from Core.models import Product,FindDealers,NewDealers,Complaints,Testimonials,Gallery,Blogs,Contact
 from django.http import JsonResponse
@@ -9,9 +10,9 @@ from django.db.models import Q
 
 
 def index(request):
-    product = Product.objects.all().order_by('id')
+    luxury_products = Product.objects.filter(Q(Door_type_1='Luxury') | Q(Door_type_2='Luxury'))
     context = {
-        'products' : product
+        'luxury_products': luxury_products,
     }
     return render(request, 'Frontpage/index.html', context)
 
@@ -20,25 +21,38 @@ def about(request):
 
 def products(request):
     all_products = Product.objects.all()
-    luxury_products = Product.objects.filter(Q(Door_type_1='luxury') )
-    single_products = Product.objects.filter(Q(Door_type_2='single') | Q(Door_type_1='single') | Q(Door_type_3='single'))
-    double_products = Product.objects.filter(Q(Door_type_3='double') | Q(Door_type_1='double') | Q(Door_type_2='double'))
+    luxury_products = Product.objects.filter(Q(Door_type_1='Luxury') | Q(Door_type_2='Luxury'))
+    signature_products = Product.objects.filter(Q(Door_type_2='Signature') | Q(Door_type_1='Signature') )
 
     context = {
         'all_products': all_products,
         'luxury_products': luxury_products,
-        'single_products': single_products,
-        'double_products': double_products,
+        'signature_products': signature_products,
     }
 
     return render(request, 'Frontpage/products.html', context)
     
 def product_detail(request, slug):
+    all_products = Product.objects.all()
     product = get_object_or_404(Product, Slug=slug)
-    suggest = Product.objects.exclude(Slug=slug)
+    luxury_products = Product.objects.filter(Q(Door_type_1='Luxury') | Q(Door_type_2='Luxury'))
+    
+    # Assuming product.FixedSize is a string like "['value1', 'value2']"
+    
+    # Check if FixedSize is not None and is a valid string
+    if product.FixedSize is not None:
+        try:
+            fixed_sizes = ast.literal_eval(product.FixedSize) # now fixed_sizes = ['value1', 'value2']
+        except (ValueError, SyntaxError):
+            fixed_sizes = []  # or handle it in another appropriate way
+    else:
+        fixed_sizes = []    
+    
     context = {
         'product' : product,
-        'suggest' : suggest
+        'all_products': all_products,
+        'fixed_sizes': fixed_sizes,
+        'luxury_products': luxury_products,
     }
     return render(request, 'Frontpage/product-detail.html', context)
 

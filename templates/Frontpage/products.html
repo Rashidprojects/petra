@@ -48,7 +48,7 @@
 
     <div class="card-section">
         <h1 class="text-black text-center "></h1>
-        <div id="all-container" class="card-container active">
+        <div id="all-container" class="card-container ">
             {% for door in all_products %}
 
             {% if door.Image %}
@@ -82,12 +82,12 @@
             {% endfor %}
         </div>
         
-        <div id="luxury-container" class="card-container">
+        <div id="Luxury-container" class="card-container active">
             {% for door in luxury_products %}
             <div class="door-card">
                 <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="border-radius: 7px;">
                     <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{ door.Name }}</h2>
-                    {% if door.Door_type_1 == "luxury" %}
+                    {% if door.Door_type_1 == "Luxury" %}
                     <img src="{{ door.Image.url }}" alt="">
                     {% endif %}
                 </a>
@@ -95,52 +95,27 @@
             {% endfor %}
         </div>
         
-        <div id="single-container" class="card-container">
-            {% for door in single_products %}
+        <div id="Signature-container" class="card-container">
+            {% for door in signature_products %}
             <div class="door-card">
                 <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="border-radius: 7px;">
                     <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{ door.Name }}</h2>
-                    {% if door.Door_type_1 == "single" %}
+                    {% if door.Door_type_1 == "Signature" %}
                     <img src="{{ door.Image.url }}" alt="">
                     {% endif %} 
                     
-                    {% if door.Door_type_2 == "single" %}
-                    <img src="{{ door.Image2.url }}" alt="">
-                    {% endif %} 
-
-                    {% if door.Door_type_3 == "single" %}
-                    <img src="{{ door.Image3.url }}" alt="">
-                    {% endif %} 
                 </a>
             </div>
             {% endfor %}
         </div>
         
-        <div id="double-container" class="card-container">
-            {% for door in double_products %}
-            <div class="door-card">
-                <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="border-radius: 7px;">
-                    <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{ door.Name }}</h2>
-                    {% if door.Door_type_1 == "double" %}
-                    <img src="{{ door.Image.url }}" alt="">
-                    {% endif %} 
-                    
-                    {% if door.Door_type_2 == "double" %}
-                    <img src="{{ door.Image2.url }}" alt="">
-                    {% endif %} 
-
-                    {% if door.Door_type_3 == "double"  %}
-                    <img src="{{ door.Image3.url }}" alt="">
-                    {% endif %}                
-                </a>
-            </div>
-            {% endfor %}
-        </div>
+        
     </div>
     
     
+    
 
-    <script src="{% static 'js/button.js' %}"></script>
+    <script src="{% static 'js/active.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- Add this in the head or at the end of the body -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

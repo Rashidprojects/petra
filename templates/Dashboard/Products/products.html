@@ -58,21 +58,8 @@
                                 </td>
                                 <td class="text-center whitespace-nowrap">{{ door.Name }}</td>
 
-                                <td class="text-center whitespace-nowrap">
-                                    {% if door.Door_type_1 != 'none'  %}
+                                <td class="text-center whitespace-nowrap"> 
                                         {{ door.Door_type_1 }}
-                                    {% endif %}
-
-                                    {% if door.Door_type_2 != 'none'  %}
-                                        {% if door.Door_type_1 != 'none'  %}, {% endif %}
-                                        {{ door.Door_type_2 }}
-                                    {% endif %}
-
-                                    {% if door.Door_type_3 and door.Door_type_3 != "None" and door.Door_type_3 != "none" %}
-                                        {% if door.Door_type_2 != 'none'  %}, {% endif %}
-                                        {{ door.Door_type_3 }}
-                                    {% endif %}
-
                                 </td>
 
 

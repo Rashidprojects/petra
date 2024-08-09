@@ -30,8 +30,7 @@ class Material(models.Model):
 class Product(models.Model):
     DOOR_TYPES = [
         ('luxury', 'Luxury'),
-        ('single', 'Single'),
-        ('double', 'Double'),
+        ('signature', 'Signature'),
     ]
     
     Date = models.DateField(auto_now_add=True )
@@ -46,12 +45,11 @@ class Product(models.Model):
     Hanging_position = models.ManyToManyField('HangingPosition', blank=True)
     Color_shade = models.ManyToManyField('ColorShade', blank=True)
     Sizes = models.ManyToManyField('Size', blank=True)
+    FixedSize = models.CharField(max_length=100, null=True, blank=True)
     Materials = models.ManyToManyField('Material', blank=True)
     Door_type_1 = models.CharField(max_length=30, blank=True, null=True)
     Door_type_2 = models.CharField(max_length=30, blank=True, null=True)
     Door_type_3 = models.CharField(max_length=30, blank=True, null=True)
-
-
     
     def save(self, *args, **kwargs):
         if not self.Slug:

@@ -6,6 +6,7 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="{%static 'css/swiper.css' %}">
 
     <div class="container-fluid p-0">
 
@@ -214,12 +215,12 @@
                 <h5 class="title-sub">PETRA STEEL DOORS</h5>
                 <h2 class="title-1">Our Signature Doors</h2>
             </div>
-            <div class="signature-doors">
+            <div >
                 <div class="Ddoorprosection-main">
                     <div class="Ddoorprosection">
                         <div class="mySwiperprosection">
                             <div class="swiper-wrapper">
-                                {% for door in products %}
+                                {% for door in luxury_products %}
 
                                 {% if door.Image %}
                                 <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="width:400px">
@@ -230,36 +231,12 @@
                                     border-radius: 7px;">
                                 </a>
                                 {% endif %}
-
-                                {% if door.Image2 and door.Door_type_2 != "none" %}
-                                <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="width:400px">
-                                    <h2 class="cardDcnt animate__animated animate__fadeInUp" style="width:400px" >{{door.Name}}</h2>
-                                    <img class="signature-img" src="{{door.Image2.url}}" alt="" style="
-                                    width: 400px;
-                                    height: 400px;
-                                    border-radius: 7px;">
-                                </a>
-                                {% endif %}
-
-                                {% if door.Image3 and door.Door_type_2 != "none" %}
-                                <a class="swiper-slide" href="{{ door.get_absolute_url }}" style="width:400px">
-                                    <h2 class="cardDcnt animate__animated animate__fadeInUp" style="width:400px" >{{door.Name}}</h2>
-                                    <img class="signature-img" src="{{door.Image3.url}}" alt="" style="
-                                    width: 400px;
-                                    height: 400px;
-                                    border-radius: 7px;">
-                                </a>
-                                {% endif %}
-
-
                                 {% endfor %}
                             </div>
-                            {% comment %} <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div> {% endcomment %}
                         </div>
                     </div>
-                </div>
+                </div> 
+                
             </div>
             
         </section>

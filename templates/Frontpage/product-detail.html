@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <link rel="stylesheet" href="{% static 'style/product.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper.css' %}">
 
     <link rel="stylesheet" href="{% static 'style/Productdetails.css' %}">
 
@@ -285,16 +286,24 @@
                         <div class="product_display-rightsize mt-4 flex">
                             <h4>Available Sizes</h4>
                             <div class="size-flex">
+                                <!-- First Loop: product.Sizes.all -->
                                 {% for size in product.Sizes.all %}
                                 <div class="product_display-rightsize-sub mt-3 margin">
                                     <input type="radio" id="size-radio-{{ size.id }}" name="available_size" value="{{ size.Name }}" class="hidden-radio">
-                                    <button class="styled-button" id="size-button-{{ size.id }}" data-radio="size-radio-{{ size.id }}" >{{ size.Name }}</button>
+                                    <button class="styled-button" id="size-button-{{ size.id }}" data-radio="size-radio-{{ size.id }}">{{ size.Name }}</button>
                                 </div>
                                 {% endfor %}
 
-                            </div>
-                            
+                                <!-- Second Loop: fixed_sizes -->
+                                {% for size in fixed_sizes %}
+                                <div class="product_display-rightsize-sub mt-3 margin">
+                                    <input type="radio" id="fixed-size-radio-{{ forloop.counter }}" name="available_fixedsize" value="{{ size }}" class="hidden-radio">
+                                    <button class="styled-button" id="size-button-{{ forloop.counter }}" data-radio="fixed-size-radio-{{ forloop.counter }}">{{ size }}</button>
+                                </div>
+                                {% endfor %}
 
+                            
+                            </div>  
                         </div>
                     </div>
                 </div>
@@ -307,7 +316,7 @@
         {% comment %} Model Popup Message {% endcomment %}
 
          <!-- Modal -->
-         <div class="overlay" id="overlay"></div>
+        <div class="overlay" id="overlay"></div>
         <div class="popup" id="popup">
             <div class="dlrs-cnt">
                 <div class="form-imgService">
@@ -315,43 +324,37 @@
                 </div>
                 <div class="d-flex flex-column justify-content-center row-gap-4 pt-4 ">
                     <div class="text-center py-sm-2">
-                        <h2 class="title-1">Enter Your Deatils</h2>
-                        
+                        <h2 class="title-1">Enter Your Details</h2>
                     </div>
-                <form method="post" id="popup-form" action="{% url 'submit_quote' %}">
-                    {% csrf_token %}
-                    <div class="input-section">
-                        <div class="input-sp">
-                            <input class="input" id="username" name="username" placeholder="Enter Your Name" type="text" autocomplete="off">
+                    <form method="post" id="popup-form" action="{% url 'submit_quote' %}">
+                        {% csrf_token %}
+                        <div class="input-section">
+                            <div class="input-sp">
+                                <input class="input" id="username" name="username" placeholder="Enter Your Name" type="text" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-section mt-2">
-                        <div class="input-sp">
-                            <input class="input" id="phone" name="phone_number" placeholder="Enter Your Number" type="tel" pattern="[0-9]{10}" maxlength="10" autocomplete="off" oninput="validatePhoneNumber(this)">
+                        <div class="input-section mt-2">
+                            <div class="input-sp">
+                                <input class="input" id="phone" name="phone_number" placeholder="Enter Your Number" type="tel" pattern="[0-9]{10}" maxlength="10" autocomplete="off" oninput="validatePhoneNumber(this)">
+                            </div>
                         </div>
-                    </div>
-                    
-                    
-                    <input type="hidden" id="popup_door_hanging_position" name="door_hanging_position">
-                    <input type="hidden" id="popup_available_size" name="available_size">
-                    <input type="hidden" id="popup_available_color" name="available_color">
-                    <input type="hidden" id="popup_available_material" name="available_material">
-           
-        
-                    <div class="d-flex justify-content-center mt-3">
-                        <button class="submit-delers">Submit</button>
-                    </div>
-                </form>
-        
+                        <input type="hidden" id="popup_door_hanging_position" name="door_hanging_position">
+                        <input type="hidden" id="popup_available_size" name="available_size">
+                        <input type="hidden" id="popup_available_color" name="available_color">
+                        <input type="hidden" id="popup_available_material" name="available_material">
+
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="submit-delers">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
 
-
         <div class="row product-description">
             <div class="d-flex flex-column gap-3">
-                <h3>Prodect Description</h3>
+                <h3>Product Description</h3>
 
                 <p>Elevate your property's security while adding a touch of elegance with Petra Steel Doors. Our
                     extensive
@@ -373,34 +376,16 @@
                 </ul>
             </div>
         </div>
-    </div>
 
-
-
-
-
-    <div class="Ddoorprosection-main">
-        <div class="Ddoorprosection">
-            <h1 class="text-black text-center mb-5">Our Signature Doors</h1>
-            <div class="mySwiperprosection"> 
-                <div class="swiper-wrapper">
-                    {% for door in suggest %}
-                    <a class="swiper-slide suggest-size" href="{{door.get_absolute_url}}">
-                        <h2 class="cardDcnt animate__animated animate__fadeInUp ">{{door.Name}}</h2>
-                        <img src="{{door.Image.url}}" alt="">
-                    </a>
-                    {% endfor %}
-                </div>
-                <div class="swiper-pagination"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
+        <div class="suggest-cards">
+            <div class="suggest">hi</div>
+            <div class="suggest">hello</div>
         </div>
+        
     </div>
 
 
-
-
+    
 
     <footer class="footer-section">
 		<div class="row footer-subhead d-flex ">
@@ -554,9 +539,6 @@
             input.value = input.value.replace(/[^0-9]/g, '');
         }
 
-        
-       
-
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize the main swiper
             var mainSwiper = new Swiper('.ProductDetailpage', {
@@ -586,7 +568,6 @@
             });
         });
 
-
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -614,10 +595,13 @@
             // Handle GET A QUOTE button click
             document.getElementById('get-quote-button').addEventListener('click', function() {
                 const selectedPosition = document.querySelector('input[name="door_hanging_position"]:checked')?.value;
-                const selectedSize = document.querySelector('input[name="available_size"]:checked')?.value;
+                
+                // Check for available size or fixed size
+                const selectedSize = document.querySelector('input[name="available_size"]:checked')?.value ||
+                                     document.querySelector('input[name="available_fixedsize"]:checked')?.value;
+                                     
                 const selectedColor = document.querySelector('input[name="available_color"]:checked')?.value;
                 const selectedMaterial = document.querySelector('input[name="available_material"]:checked')?.value;
-
         
                 // Print the values to the console
                 console.log('Selected Position:', selectedPosition);
@@ -630,7 +614,6 @@
                     document.getElementById('popup_available_size').value = selectedSize;
                     document.getElementById('popup_available_color').value = selectedColor;
                     document.getElementById('popup_available_material').value = selectedMaterial;
-
         
                     document.getElementById('overlay').style.display = 'block';
                     document.getElementById('popup').style.display = 'block';
@@ -638,9 +621,7 @@
                     alert('Please make a selection for all options.');
                 }
             });
-        });
-        
-        
+        });   
     </script>
     
         

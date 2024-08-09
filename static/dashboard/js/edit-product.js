@@ -3,7 +3,7 @@ const doorTypeOptions = {
     'single': ['double', 'none'],
     'double': ['none'],
     'none': []
-};
+};      
 
 function updateImageOptions() {
     const image1Type = document.getElementById('door_type_1').value;

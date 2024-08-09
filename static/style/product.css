@@ -691,13 +691,13 @@ select option {
     cursor: pointer;
 }
 
-.swiper-slide h2 {
+/* .swiper-slide h2 {
     display: none;
 }
 
 .swiper-slide:hover h2 {
     display: block;
-}
+} */
 
 
 
