@@ -130,7 +130,7 @@
                                                 {% if data.Is_read %}
                                                     <span class="read-indicator"></span>
                                                 {% else %}
-                                                    <input type="checkbox" name="quote_ids" value="{{ data.id }}" onchange="updateReadStatus(this, {{ data.id }})">
+                                                    <input type="checkbox" name="quote_ids" value="{{ data.id }}" onchange="updateQuoteReadStatus(this, {{ data.id }})">
                                                 {% endif %}
                                             </form>
                                         </td>

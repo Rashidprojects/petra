@@ -16,24 +16,30 @@
 
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{% static 'dashboard/css/app.css' %}" />
+        <link rel="stylesheet" href="{% static 'dashboard/css/base-style.css' %}" />
         <link rel="stylesheet" href="{% static 'dashboard/css/premium.css' %}" />
         <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- END: CSS Assets-->
-
     </head>
     <!-- END: Head -->
+
     <body class="py-5">
-        <!-- BEGIN: Mobile Menu mobile-menu--active -->
-        <div class="mobile-menu md:hidden " style="background: #333333;">
+        <!-- BEGIN: Mobile Menu -->
+        <div class="mobile-menu md:hidden" style="background: #333333;">
             <div class="mobile-menu-bar">
                 <a href="" class="flex mr-auto">
                     <img alt="Midone - HTML Admin Template" src="{% static 'assets/images/Petra-logo.png' %}" style="width: 60px;">
                 </a>
-                <a href="javascript:;" class="mobile-menu-toggler" id="open"> <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
+                <a href="javascript:;" class="mobile-menu-toggler" id="open"> 
+                    <i data-lucide="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i> 
+                </a>
             </div>
             <div class="scrollable" style="background-color: #747474;">
-                <a href="javascript:;" class="mobile-menu-toggler" id="close">  <i data-lucide="x-circle" class="w-8 h-8 text-white transform -rotate-90"></i> </a>
-                <ul class="scrollable__content py-2" >
+                <a href="javascript:;" class="mobile-menu-toggler" id="close">  
+                    <i data-lucide="x-circle" class="w-8 h-8 text-white transform -rotate-90"></i> 
+                </a>
+                <ul class="scrollable__content py-2">
                     <li>
                         <a href="{% url 'dashboard' %}" class="menu menu--active">
                             <div class="menu__icon"> <i data-lucide="home"></i> </div>
@@ -74,13 +80,13 @@
             </div>
         </div>
         <!-- END: Mobile Menu -->
+
         <!-- BEGIN: Top Bar -->
         <div class="border-b border-white/[0.08] mt-[2.2rem] md:-mt-5 -mx-3 sm:-mx-8 px-3 sm:px-8 pt-3 md:pt-0 mb-10">
             <div class="top-bar-boxed flex items-center">
                 <!-- BEGIN: Logo -->
                 <a href="" class="-intro-x hidden md:flex">
-                    <img alt="Midone - HTML Admin Template" src="{% static 'assets/images/Petra-logo.png' %}" style="width: 80px;">
-                    <!-- <span class="text-white text-lg ml-3"> Rubick </span>  -->
+                    <img alt="Midone - HTML Admin Template" src="{% static 'assets/images/Petra-Logo.png' %}" style="width: 80px;">
                 </a>
                 <!-- END: Logo -->
 
@@ -101,36 +107,31 @@
                         <input type="text" class="search__input form-control border-transparent" placeholder="Search...">
                         <i data-lucide="search" class="search__icon dark:text-slate-500"></i> 
                     </div>
-                    <a class="notification notification--light sm:hidden" href=""> <i data-lucide="search" class="notification__icon dark:text-slate-500"></i> </a>
-                   
+                    <a class="notification notification--light sm:hidden" href=""> 
+                        <i data-lucide="search" class="notification__icon dark:text-slate-500"></i> 
+                    </a>
                 </div>
-               
-                <!-- END: Notifications -->
+                <!-- END: Search -->
+
                 <!-- BEGIN: Account Menu -->
-                <div class="intro-x dropdown w-8 h-8">
-                    <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
-                        <img alt="Midone - HTML Admin Template" src="{% static 'dashboard/images/profile-8.jpg' %}">
-                    </div>
-                    <div class="dropdown-menu w-56">
-                        <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
-                            <li class="p-2">
-                                <div class="font-medium">{{ user.username }}</div>
-                                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">Super Admin</div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider border-white/[0.08]">
-                            </li>
-                            
-                            <li>
-                                <a href="{% url 'sign-out' %}" class="dropdown-item hover:bg-white/5"> <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i> Logout </a>
-                            </li>
-                        </ul>
-                    </div>
+                 
+                <div class="account-auth">
+                    <li>
+                        <a href="{% url 'sign-out' %}" class="dropdown-item hover:bg-white/5"> 
+                            <i  class="w-4 h-4 mr-2"></i> Logout 
+                        </a>
+                    </li>
                 </div>
+                <div class="account-menu">
+                    <i class="fa-solid fa-user"></i>
+                    <p class="font-medium">{{ user.username }}</p>
+                 </div>
+                
                 <!-- END: Account Menu -->
             </div>
         </div>
         <!-- END: Top Bar -->
+
         <!-- BEGIN: Top Menu -->
         <nav class="top-nav">
             <ul>
@@ -140,14 +141,12 @@
                         <div class="top-menu__title"> Dashboard </div>
                     </a>
                 </li>
-
                 <li>
                     <a href="{% url 'manage-products' %}" class="top-menu ">
                         <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
                         <div class="top-menu__title"> Products </div>
                     </a>
                 </li>
-
                 <li>
                     <a href="{% url 'manage-enquirys' %}" class="top-menu ">
                         <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
@@ -157,14 +156,12 @@
                         {% endif %}
                     </a>
                 </li>
-
                 <li>
                     <a href="{% url 'manage-complaints' %}" class="top-menu ">
                         <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
                         <div class="top-menu__title"> Services </div>
                     </a>
                 </li>
-                
                 <li>
                     <a href="{% url 'manage-testimonials' %}" class="top-menu">
                         <div class="top-menu__icon"> <i data-lucide="box"></i> </div>
@@ -189,79 +186,53 @@
                         <div class="top-menu__title"> Contacts </div>
                     </a>
                 </li>
-
                 
             </ul>
         </nav>
         <!-- END: Top Menu -->
 
+        <div class="flex items-center justify-between flex-1">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <script src="{% static 'dashboard/js/app.js' %}"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places&callback=Function.prototype&language=en&v=weekly" defer></script>
+
         <script>
             document.addEventListener('DOMContentLoaded', () => {
+                const open = document.getElementById('open');
+                const close = document.getElementById('close');
+                const displayDiv = document.querySelector('.mobile-menu');
+
+                open.addEventListener('click', () => {
+                    displayDiv.classList.toggle('mobile-menu--active');
+                });
+
+                close.addEventListener('click', () => {
+                    displayDiv.classList.remove('mobile-menu--active');
+                });
+
                 const navLinks = document.querySelectorAll('.top-menu');
-                
-                // Retrieve the stored active link from localStorage
-                const activeLinkHref = localStorage.getItem('activeLinkHref');
-                
-                if (activeLinkHref) {
-                    const currentHref = window.location.href;
-                    const targetUrl = new URL(activeLinkHref, currentHref);
-            
-                    // Redirect if current URL is different from the target URL
-                    if (currentHref !== targetUrl.href) {
-                        window.location.href = targetUrl.href;
-                    }
-                } else {
-                    // Set default active link
-                    localStorage.setItem('activeLinkHref', "{% url 'dashboard' %}");
+                const activeLinkHref = localStorage.getItem('activeLinkHref') || "{% url 'dashboard' %}";
+                const currentHref = window.location.href;
+                const targetUrl = new URL(activeLinkHref, currentHref);
+
+                // Redirect if the current URL is different from the target URL
+                if (currentHref !== targetUrl.href) {
+                    window.location.href = targetUrl.href;
                 }
-        
-                // Apply the active class to the stored link
+
                 navLinks.forEach(link => {
                     const href = link.getAttribute('href');
                     if (href === activeLinkHref) {
                         link.classList.add('top-menu--active');
                     }
-                });
-        
-                // Set up the click event listeners
-                navLinks.forEach(link => {
                     link.addEventListener('click', () => {
-                        // Store the href of the clicked link in localStorage
-                        localStorage.setItem('activeLinkHref', link.getAttribute('href'));
+                        localStorage.setItem('activeLinkHref', href);
                     });
                 });
             });
-
-            document.addEventListener('DOMContentLoaded', () => {
-                const open = document.getElementById('open')
-                const close = document.getElementById('close')
-                const displayDiv = document.querySelector('.mobile-menu')
-
-                open.addEventListener('click', () => {
-                    displayDiv.classList.add('mobile-menu--active');
-                })
-
-                close.addEventListener('click', () => {
-                    displayDiv.classList.remove('mobile-menu--active');
-                })
-            })
         </script>
-        
-        
-
-        <!-- BEGIN: Content -->
-        {% block content %}
-            
-        {% endblock content %}
-        <!-- END: Content -->
-        
-        <!-- BEGIN: JS Assets-->
-         
-        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
-        <script src="{% static 'dashboard/js/app.js' %}"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <script src="{% static 'dashboard/js/block.js' %}"></script>
-        <!-- END: JS Assets-->
     </body>
 </html>

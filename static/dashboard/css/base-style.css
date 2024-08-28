@@ -1,0 +1,36 @@
+.account-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.account-menu i{
+    color: #fff;
+}
+
+.account-menu p {
+    color: #fff;
+}
+
+.account-auth li {
+    list-style: none;
+    color: #e8e5e5;
+    padding-right: 14px;
+    padding-left: 7px;
+    margin: 0 5px;
+}
+
+.account-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.account-auth li:hover {
+    background-color: rgb(241, 47, 47);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+

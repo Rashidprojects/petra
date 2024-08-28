@@ -46,6 +46,14 @@
                         {% endif %}
                     </div>
                     <div class="intro-y col-span-12 sm:col-span-6">
+                        <label for="input-wizard-2" class="form-label">Banner Image</label>
+                        <input name="bannerImg" type="file" class="form-control file" accept=".png, .jpg, .jpeg" required>
+                        <small class="form-text text-muted">Please select images of size 1600x992 pixels.</small>
+                        {% if blog.BannerImg %}
+                            <img src="{{ blog.BannerImg.url }}" alt="Current Image" style="max-width: 200px; margin-top: 10px;" data-action="zoom">
+                        {% endif %}
+                    </div>
+                    <div class="intro-y col-span-12 sm:col-span-6">
                         <label for="input-wizard-2" class="form-label">Description</label>
                         <textarea name="desc" rows="10" cols="5" class="form-control" required>{{ blog.Description }}</textarea>
                     </div> 

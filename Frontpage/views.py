@@ -10,9 +10,9 @@ from django.db.models import Q
 
 
 def index(request):
-    luxury_products = Product.objects.filter(Q(Door_type_1='Luxury') | Q(Door_type_2='Luxury'))
+    all_products = Product.objects.all()
     context = {
-        'luxury_products': luxury_products,
+        'all_products': all_products,
     }
     return render(request, 'Frontpage/index.html', context)
 
