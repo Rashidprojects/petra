@@ -4,10 +4,6 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'dashboard/css/custome-style.css' %}" />
 
-<style>
-    
-    
-</style>
 
 <div class="content">
     <div class="grid gap-6">
@@ -20,7 +16,7 @@
                             Enquiry Report
                         </h2>
                     </div>
-                    <div class="grid-enquiry grid-cols-12 gap-6 mt-5">
+                    <div class="grid-enquiry grid-cols-12 gap-6 mt-5 flex">
                         <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                             <a href="javascript:void(0);" onclick="showQuotes()" class="enquiry-link">
                                 <div class="zoom-in">
@@ -430,6 +426,13 @@
         display: inline-block;
         margin-left: 5px;
     }
+
+    @media screen and (max-width: 768px) {
+            .grid-enquiry .zoom-in {
+                width : auto;
+            }
+    }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>

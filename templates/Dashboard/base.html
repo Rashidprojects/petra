@@ -47,33 +47,45 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="menu">
+                        <a href="{% url 'manage-products' %}" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
-                            <div class="menu__title"> Gallery </div>
+                            <div class="menu__title"> Products </div>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="menu">
+                        <a href="{% url 'manage-enquirys' %}" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
                             <div class="menu__title"> Enquiries </div>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="menu">
+                        <a href="{% url 'manage-complaints' %}" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
-                            <div class="menu__title"> Premiums </div>
+                            <div class="menu__title"> Services </div>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="menu">
+                        <a href="{% url 'manage-testimonials' %}" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
-                            <div class="menu__title"> Singles </div>
+                            <div class="menu__title"> Testimonials </div>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="menu">
+                        <a href="{% url 'manage-gallery' %}" class="menu">
                             <div class="menu__icon"> <i data-lucide="box"></i> </div>
-                            <div class="menu__title"> Doubles </div>
+                            <div class="menu__title"> Gallery </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'manage-blogs' %}" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Blogs </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'enquiries' %}" class="menu">
+                            <div class="menu__icon"> <i data-lucide="box"></i> </div>
+                            <div class="menu__title"> Contacts </div>
                         </a>
                     </li>
                 </ul>
@@ -213,7 +225,7 @@
                     displayDiv.classList.remove('mobile-menu--active');
                 });
 
-                const navLinks = document.querySelectorAll('.top-menu');
+                const navLinks = document.querySelectorAll('.top-menu || .menu');
                 const activeLinkHref = localStorage.getItem('activeLinkHref') || "{% url 'dashboard' %}";
                 const currentHref = window.location.href;
                 const targetUrl = new URL(activeLinkHref, currentHref);
